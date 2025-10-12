@@ -74,7 +74,7 @@ function GuessForm({ makeGuess, solutionLength }: {
       e.preventDefault()
       makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
     }}>
-      <input type='text' name='guess' />
+      <input type='text' name='guess' autoFocus />
       <input type='submit' value={`Submit (${solutionLength})`} />
     </form>
   )
