@@ -1,0 +1,6 @@
+services:
+  wordle:
+    image: ghcr.io/seprog/wordle:latest
+    build: .
+    ports:
+      - 3000:3000
