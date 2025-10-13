@@ -15,6 +15,12 @@ export default function App() {
 
   // safeguard wordle / wordleId
   if (!wordle) {
+    if (!wordle[0]) return (
+      <header className='my-6'>
+        <h1 className='text-4xl text-center font-bold text-red-500'>ERROR</h1>
+        <p className='text-sm text-center text-gray-500'>No Wordles found.</p>
+      </header>
+    )
     searchParams.set('wordleId', random.int(0, wordles.length).toString())
     window.location.search = searchParams.toString()
   }
