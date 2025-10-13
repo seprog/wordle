@@ -9,18 +9,22 @@ import './index.css'
 export default function App() {
   const searchParams = new URLSearchParams(window.location.search)
 
-  const wordleId = Math.min(wordles.length-1, Math.max(0,
-    Number.parseInt(
-      searchParams.get('wordleId') ?? ''
-    ) || random.int(0, wordles.length)
-  ))
+  // get wordleId from searchParams
+  const wordleId = Number.parseInt(searchParams.get('wordleId') ?? '')
+  const wordle = wordles[wordleId]
+
+  // safeguard wordle / wordleId
+  if (!wordle) {
+    searchParams.set('wordleId', random.int(0, wordles.length).toString())
+    window.location.search = searchParams.toString()
+  }
 
   return (
     <div>
       <Header />
-      <Main
-        wordle={ wordles[wordleId] }
-      />
+      { wordle && <Main
+        wordle={ wordle }
+      /> }
       <Footer wordleId={wordleId} />
     </div>
   )
@@ -57,7 +61,7 @@ function Footer({ wordleId }: {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
       <p className='text-xs text-center text-gray-500'>
-        wordleID: <span className='font-semibold'>{ wordleId }</span>
+        wordleID: <span className='font-semibold'>{ wordleId.toString() }</span>
       </p>
     </footer>
   )

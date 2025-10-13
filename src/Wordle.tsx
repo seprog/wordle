@@ -107,7 +107,11 @@ function NextWordleButton() {
   return (
     <button
       autoFocus
-      onClick={ () => window.location.search = window.location.search.replace('wordleId', '') }
+      onClick={ () => {
+        const searchParams = new URLSearchParams(window.location.search)
+        searchParams.delete('wordleId')
+        window.location.search = searchParams.toString()
+      } }
       className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
     >Next Wordle</button>
   )
