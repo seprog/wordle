@@ -3,10 +3,11 @@
 import { useState } from 'react'
 
 
-export function Wordle({ wordle }: {
+export function Wordle({ wordle, nextWordle }: {
   wordle: {
     [solution: string]: string[]
   }
+  nextWordle: () => void
 }) {
   const solution = Object.keys(wordle).pop()!
   const hints = wordle[solution]!
@@ -54,7 +55,10 @@ export function Wordle({ wordle }: {
       </table>
       { guesses.length < hints.length
         ? <GuessButton />
-        : <NextWordleButton />
+        : <NextWordleButton nextWordle={ () => {
+          setGuesses(() => [])
+          nextWordle()
+        } } />
       }
     </form>
   )
@@ -103,15 +107,13 @@ function GuessButton() {
   )
 }
 
-function NextWordleButton() {
+function NextWordleButton({ nextWordle }: {
+  nextWordle: () => void
+}) {
   return (
     <button
       autoFocus
-      onClick={ () => {
-        const searchParams = new URLSearchParams(window.location.search)
-        searchParams.delete('wordleId')
-        window.location.search = searchParams.toString()
-      } }
+      onClick={ nextWordle }
       className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
     >Next Wordle</button>
   )

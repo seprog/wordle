@@ -1,37 +1,46 @@
-import random from 'random'
+'use client'
+
+import { useEffect, useState } from 'react'
 
 import { Wordle } from './Wordle'
+import { factorial } from './lib/wordleHelper'
 
-import wordles from './wordles.yaml'
 import './index.css'
 
 
 export default function App() {
-  const searchParams = new URLSearchParams(window.location.search)
+  const [ wordleQueue, setWordleQueue ] = useState<any[]|null>(null)
+  const [ seed, setSeed ] = useState(0)
+  const [ level, setLevel ] = useState(0)
 
-  // get wordleId from searchParams
-  const wordleId = Number.parseInt(searchParams.get('wordleId') ?? '')
-  const wordle = wordles[wordleId]
+  useEffect(() => {
+    fetch(`/api/queue?seed=${encodeURIComponent(new URLSearchParams(window.location.search).get('seed') ?? '')}`)
+      .then(r => r.json())
+      .then(({ permutation, seed }) => {
+        setWordleQueue(() => permutation)
+        setSeed(() => seed)
+      })
+      .catch(() => {
+        setWordleQueue(() => [])
+      })
+  }, [])
 
-  // safeguard wordle / wordleId
-  if (!wordle) {
-    if (!wordle[0]) return (
-      <header className='my-6'>
-        <h1 className='text-4xl text-center font-bold text-red-500'>ERROR</h1>
-        <p className='text-sm text-center text-gray-500'>No Wordles found.</p>
-      </header>
-    )
-    searchParams.set('wordleId', random.int(0, wordles.length).toString())
-    window.location.search = searchParams.toString()
-  }
+  if (!wordleQueue)
+    return (<div className='my-6 text-2xl text-center text-gray-500>'>Loading…</div>)
 
   return (
     <div>
       <Header />
-      { wordle && <Main
-        wordle={ wordle }
-      /> }
-      <Footer wordleId={wordleId} />
+      <Main
+        wordleQueue={ wordleQueue }
+        level={ level }
+        nextWordle={ () => setLevel((level) => level + 1) }
+      />
+      <Footer
+        seed={ seed }
+        level={ level }
+        levels={ wordleQueue.length }
+      />
     </div>
   )
 }
@@ -47,28 +56,34 @@ function Header() {
   )
 }
 
-function Main({ wordle }: {
-  wordle: {
+function Main({ wordleQueue, level, nextWordle }: {
+  wordleQueue: {
     [solution: string]: string[]
-  }
+  }[]
+  level: number
+  nextWordle: () => void
 }) {
   return (
-    <main className='max-w-3xl mx-auto px-6'>
-      <Wordle
-        wordle={ wordle }
+    <main className='max-w-3xl mx-auto px-6'>{
+      wordleQueue[level]
+      ? <Wordle
+        wordle={ wordleQueue[level] }
+        nextWordle={ nextWordle }
       />
-    </main>
+      : <h2 className='text-2xl text-center text-violet-500'>You played ALL the Wordles!</h2>
+    }</main>
   )
 }
 
-function Footer({ wordleId }: {
-  wordleId: number
+function Footer({ seed, level, levels }: {
+  seed: number
+  level: number
+  levels: number
 }) {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
-      <p className='text-xs text-center text-gray-500'>
-        wordleID: <a className='font-semibold' href={window.location.toString()}>{ wordleId.toString() }</a>
-      </p>
+      <p className='text-xs text-center text-gray-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p>
+      <p className='text-xs text-center text-gray-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }/{ factorial(levels) }</span></p>
     </footer>
   )
 }
