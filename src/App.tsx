@@ -9,7 +9,7 @@ import wordles from './wordles.yaml'
 import './index.css'
 
 
-function App() {
+export default function App() {
   const searchParams = new URLSearchParams(window.location.search)
 
   const randomWordleId = () =>
@@ -22,32 +22,51 @@ function App() {
 
   return (
     <div>
-      <Title />
-      <div className='max-w-3xl mx-auto px-6'>
-        <Wordle
-          wordle={ wordles[wordleId] }
-          nextWordle={ () => setWordleId(() => randomWordleId()) }
-        />
-      </div>
-      <div className='fixed left-0 right-0 bottom-1'>
-        <p className='text-xs text-center text-gray-500'>
-          wordleID: <span className='font-semibold'>{ wordleId }</span>
-        </p>
-      </div>
+      <Header />
+      <Main
+        wordle={ wordles[wordleId] }
+        nextWordle={ () => setWordleId(() => randomWordleId()) }
+      />
+      <Footer wordleId={wordleId} />
     </div>
   )
 }
 
-
-export default App
-function Title() {
+function Header() {
   return (
-    <div className='my-6'>
+    <header className='my-6'>
       <h1 className='text-4xl text-center font-bold'>Wordle</h1>
       <p className='text-sm text-center text-gray-500'>
         by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
       </p>
-    </div>
+    </header>
   )
 }
 
+function Main({ wordle, nextWordle }: {
+  wordle: {
+    [solution: string]: string[]
+  }
+  nextWordle: () => void
+}) {
+  return (
+    <main className='max-w-3xl mx-auto px-6'>
+      <Wordle
+        wordle={ wordle }
+        nextWordle={ nextWordle }
+      />
+    </main>
+  )
+}
+
+function Footer({ wordleId }: {
+  wordleId: number
+}) {
+  return (
+    <footer className='fixed left-0 right-0 bottom-1'>
+      <p className='text-xs text-center text-gray-500'>
+        wordleID: <span className='font-semibold'>{ wordleId }</span>
+      </p>
+    </footer>
+  )
+}
