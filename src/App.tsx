@@ -1,22 +1,39 @@
+'use client'
+
+import { useState } from 'react'
 import random from 'random'
 
 import { Wordle } from './Wordle'
+
 import wordles from './wordles.yaml'
 import './index.css'
 
 
-export function App() {
+function App() {
   const searchParams = new URLSearchParams(window.location.search)
 
+  const randomWordleId = () =>
+    Math.min(wordles.length-1, Math.max(0,
+      Number.parseInt(
+        searchParams.get('wordleId') ?? ''
+      ) || random.int(0, wordles.length)
+    ))
+  const [ wordleId, setWordleId ] = useState(randomWordleId())
+
   return (
-    <Wordle wordle={wordles[
-      Math.min(wordles.length-1, Math.max(0,
-        Number.parseInt(
-          searchParams.get('cardId')
-          ?? random.int(0, wordles.length).toString()
-        ) ?? random.int(0, wordles.length)
-      ))
-    ]} />
+    <div>
+      <h1 className='mt-6 text-4xl text-center font-bold'>Wordle</h1>
+      <p className='mb-6 text-sm text-center text-gray-500'>
+        by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
+      </p>
+      <Wordle
+        wordle={ wordles[wordleId] }
+        nextWordle={ () => setWordleId(() => randomWordleId()) }
+      />
+      <p className='fixed left-0 right-0 bottom-1 text-xs text-center text-gray-500'>
+        wordleID: <span className='font-semibold'>{ wordleId }</span>
+      </p>
+    </div>
   )
 }
 
