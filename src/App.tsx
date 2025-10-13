@@ -22,10 +22,7 @@ function App() {
 
   return (
     <div>
-      <h1 className='mt-6 text-4xl text-center font-bold'>Wordle</h1>
-      <p className='mb-6 text-sm text-center text-gray-500'>
-        by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
-      </p>
+      <Title />
       <Wordle
         wordle={ wordles[wordleId] }
         nextWordle={ () => setWordleId(() => randomWordleId()) }
@@ -39,3 +36,14 @@ function App() {
 
 
 export default App
+function Title() {
+  return (
+    <div className='my-6'>
+      <h1 className='text-4xl text-center font-bold'>Wordle</h1>
+      <p className='text-sm text-center text-gray-500'>
+        by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
+      </p>
+    </div>
+  )
+}
+
