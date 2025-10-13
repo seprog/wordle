@@ -25,7 +25,7 @@ export function Wordle({ wordle, nextWordle }: {
         e.preventDefault()
         makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
       } }
-      className='flex flex-col w-lg mx-auto'
+      className='flex flex-col max-w-3xl mx-auto px-6'
     >
       <table>
         <thead>
