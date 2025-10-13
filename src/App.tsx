@@ -23,13 +23,17 @@ function App() {
   return (
     <div>
       <Title />
-      <Wordle
-        wordle={ wordles[wordleId] }
-        nextWordle={ () => setWordleId(() => randomWordleId()) }
-      />
-      <p className='fixed left-0 right-0 bottom-1 text-xs text-center text-gray-500'>
-        wordleID: <span className='font-semibold'>{ wordleId }</span>
-      </p>
+      <div className='max-w-3xl mx-auto px-6'>
+        <Wordle
+          wordle={ wordles[wordleId] }
+          nextWordle={ () => setWordleId(() => randomWordleId()) }
+        />
+      </div>
+      <div className='fixed left-0 right-0 bottom-1'>
+        <p className='text-xs text-center text-gray-500'>
+          wordleID: <span className='font-semibold'>{ wordleId }</span>
+        </p>
+      </div>
     </div>
   )
 }
