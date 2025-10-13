@@ -29,9 +29,9 @@ export function Wordle({ wordle, nextWordle }: {
     >
       <table>
         <thead>
-          <tr>
-            <th>Round</th>
-            <th>Guess</th>
+          <tr className='text-nowrap'>
+            <th>{ `Round (${ hints.length })` }</th>
+            <th>{ `Guess (${ solution.length })` }</th>
             <th>Hint</th>
           </tr>
         </thead>
@@ -54,7 +54,7 @@ export function Wordle({ wordle, nextWordle }: {
         </tbody>
       </table>
       { guesses.length < hints.length
-        ? <GuessButton solution={ solution } />
+        ? <GuessButton />
         : <NextWordleButton nextWordle={ () => {
             setGuesses(() => [])
             nextWordle()
@@ -97,13 +97,11 @@ function GuessInput() {
   )
 }
 
-function GuessButton({ solution }: {
-  solution: string
-}) {
+function GuessButton() {
   return (
     <input
       type='submit'
-      value={ `Submit (${ solution.length })` }
+      value={ 'Submit' }
       className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
     />
   )
