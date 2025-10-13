@@ -61,7 +61,7 @@ function Footer({ wordleId }: {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
       <p className='text-xs text-center text-gray-500'>
-        wordleID: <span className='font-semibold'>{ wordleId.toString() }</span>
+        wordleID: <a className='font-semibold' href={window.location.toString()}>{ wordleId.toString() }</a>
       </p>
     </footer>
   )
