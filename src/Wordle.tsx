@@ -55,14 +55,10 @@ export function Wordle({ wordle, nextWordle }: {
       </table>
       { guesses.length < hints.length
         ? <GuessButton solution={ solution } />
-        : <button
-            autoFocus
-            onClick={ () => {
-              setGuesses(() => [])
-              nextWordle()
-            } }
-            className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
-          >Next Wordle</button>
+        : <NextWordleButton nextWordle={ () => {
+            setGuesses(() => [])
+            nextWordle()
+          } } />
       }
     </form>
   )
@@ -110,5 +106,17 @@ function GuessButton({ solution }: {
       value={ `Submit (${ solution.length })` }
       className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
     />
+  )
+}
+
+function NextWordleButton({ nextWordle }: {
+  nextWordle: () => void
+}) {
+  return (
+    <button
+      autoFocus
+      onClick={ nextWordle }
+      className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
+    >Next Wordle</button>
   )
 }
