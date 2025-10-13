@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import random from 'random'
 
 import { Wordle } from './Wordle'
@@ -12,20 +9,17 @@ import './index.css'
 export default function App() {
   const searchParams = new URLSearchParams(window.location.search)
 
-  const randomWordleId = () =>
-    Math.min(wordles.length-1, Math.max(0,
-      Number.parseInt(
-        searchParams.get('wordleId') ?? ''
-      ) || random.int(0, wordles.length)
-    ))
-  const [ wordleId, setWordleId ] = useState(randomWordleId())
+  const wordleId = Math.min(wordles.length-1, Math.max(0,
+    Number.parseInt(
+      searchParams.get('wordleId') ?? ''
+    ) || random.int(0, wordles.length)
+  ))
 
   return (
     <div>
       <Header />
       <Main
         wordle={ wordles[wordleId] }
-        nextWordle={ () => setWordleId(() => randomWordleId()) }
       />
       <Footer wordleId={wordleId} />
     </div>
@@ -43,17 +37,15 @@ function Header() {
   )
 }
 
-function Main({ wordle, nextWordle }: {
+function Main({ wordle }: {
   wordle: {
     [solution: string]: string[]
   }
-  nextWordle: () => void
 }) {
   return (
     <main className='max-w-3xl mx-auto px-6'>
       <Wordle
         wordle={ wordle }
-        nextWordle={ nextWordle }
       />
     </main>
   )
