@@ -56,6 +56,7 @@ export function Wordle({ wordle, nextWordle }: {
       { guesses.length < hints.length
         ? <GuessButton solution={ solution } />
         : <button
+            autoFocus
             onClick={ () => {
               setGuesses(() => [])
               nextWordle()
