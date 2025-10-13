@@ -1,99 +1,39 @@
-import random from 'random'
+'use client'
+
 import { useState } from 'react'
+import random from 'random'
+
+import { Wordle } from './Wordle'
 
 import wordles from './wordles.yaml'
 import './index.css'
 
 
-export function App() {
+function App() {
   const searchParams = new URLSearchParams(window.location.search)
 
-  return (
-    <Wordle wordle={wordles[
-      Math.min(wordles.length-1, Math.max(0,
-        Number.parseInt(
-          searchParams.get('cardId')
-          ?? random.int(0, wordles.length).toString()
-        ) ?? random.int(0, wordles.length)
-      ))
-    ]} />
-  )
-}
-
-function Wordle({ wordle }: {
-  wordle: {
-    [solution: string]: string[]
-  }
-}) {
-  const solution = Object.keys(wordle).pop()!
-  const hints = wordle[solution]!
-
-  const [ guesses, setGuesses ] = useState<string[]>([])
-  function makeGuess(guess: string) {
-    if (guess && guess.length === solution.length) setGuesses((guesses) => [
-      ...guesses,
-      guess
-    ])
-  }
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Round</th>
-          <th>Guess</th>
-          <th>Hint</th>
-        </tr>
-      </thead>
-      <tbody>
-        { hints.slice(0, guesses.length+1).map((hint, round) => (
-          <tr key={round}>
-            <td>{ round + 1 }</td>
-            <td>{
-              guesses[round]
-              ? <FormattedGuess guess={guesses[round]} solution={solution} />
-              : <GuessForm makeGuess={makeGuess} solutionLength={solution.length} />
-            }</td>
-            <td>{ hint }</td>
-          </tr>
-        )) }
-      </tbody>
-    </table>
-  )
-}
-
-function FormattedGuess({ guess, solution }: {
-  guess: string,
-  solution: string
-}) {
-  return (
-    guess.toUpperCase().split('').map((c, n) => (
-      <span
-        key={n}
-        className={
-          solution.toUpperCase().includes(c)
-          ? c === solution.toUpperCase().at(n)
-          ? 'text-green-700'
-          : 'text-yellow-700'
-          : 'text-red-700'
-        }
-      >{ c }</span>
+  const randomWordleId = () =>
+    Math.min(wordles.length-1, Math.max(0,
+      Number.parseInt(
+        searchParams.get('wordleId') ?? ''
+      ) || random.int(0, wordles.length)
     ))
-  )
-}
+  const [ wordleId, setWordleId ] = useState(randomWordleId())
 
-function GuessForm({ makeGuess, solutionLength }: {
-  makeGuess: (guess: string) => void
-  solutionLength: number
-}) {
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
-    }}>
-      <input type='text' name='guess' />
-      <input type='submit' value={`Submit (${solutionLength})`} />
-    </form>
+    <div>
+      <h1 className='mt-6 text-4xl text-center font-bold'>Wordle</h1>
+      <p className='mb-6 text-sm text-center text-gray-500'>
+        by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
+      </p>
+      <Wordle
+        wordle={ wordles[wordleId] }
+        nextWordle={ () => setWordleId(() => randomWordleId()) }
+      />
+      <p className='fixed left-0 right-0 bottom-1 text-xs text-center text-gray-500'>
+        wordleID: <span className='font-semibold'>{ wordleId }</span>
+      </p>
+    </div>
   )
 }
 
