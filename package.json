@@ -12,7 +12,7 @@
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
     "build": "docker compose build",
-    "preview": "docker compose build && docker compose start"
+    "preview": "docker compose build && docker compose up; docker compose down"
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.1.2",
