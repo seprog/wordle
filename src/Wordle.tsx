@@ -25,7 +25,7 @@ export function Wordle({ wordle, nextWordle }: {
         e.preventDefault()
         makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
       } }
-      className='flex flex-col w-lg mx-auto items-stretch'
+      className='flex flex-col w-lg mx-auto'
     >
       <table>
         <thead>
@@ -37,8 +37,8 @@ export function Wordle({ wordle, nextWordle }: {
         </thead>
         <tbody>
           { hints.slice(0, guesses.length+1).map((hint, round) => (
-            <tr key={ round } className={ `px-2 py-2 ${round === guesses.length ? 'font-semibold' : ''}` }>
-              <td className='font-mono text-end'>
+            <tr key={ round } className={ `${round === guesses.length ? 'font-semibold' : ''}` }>
+              <td className='px-2 py-2 font-mono text-end'>
                 { round + 1 }
               </td>
               <td className='px-2 py-2'>{
