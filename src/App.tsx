@@ -122,6 +122,7 @@ function Progress({ level, correctLevels, score, levels }: {
           animate={ {
             width: `${ Math.floor(Math.min(level+1, levels) / levels * 100) }%`,
             transition: {
+              delay: 0 * 1,
               duration: 1
             }
           } }
@@ -131,6 +132,7 @@ function Progress({ level, correctLevels, score, levels }: {
           animate={ {
             width: `${ Math.floor(level / levels * 100) }%`,
             transition: {
+              delay: 1 * 1,
               duration: 1
             }
           } }
@@ -140,6 +142,7 @@ function Progress({ level, correctLevels, score, levels }: {
           animate={ {
             width: `${ Math.floor(correctLevels / levels * 100) }%`,
             transition: {
+              delay: 2 * 1,
               duration: 1
             }
           } }
@@ -149,6 +152,7 @@ function Progress({ level, correctLevels, score, levels }: {
           animate={ {
             width: `${ Math.floor(score / levels * 100) }%`,
             transition: {
+              delay: 3 * 1,
               duration: 1
             }
           } }
