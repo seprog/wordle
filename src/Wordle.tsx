@@ -41,7 +41,7 @@ export function Wordle({ wordle, nextWordle }: {
       } }
       className='flex flex-col'
     >
-      <Table guesses={ guesses } hints={ hints } solution={ solution } />
+      <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
       <input
         type='submit'
         value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
@@ -51,7 +51,7 @@ export function Wordle({ wordle, nextWordle }: {
   )
 }
 
-function Table({ guesses, hints, solution }:{
+function WordleTable({ guesses, hints, solution }:{
   guesses: string[]
   hints: string[]
   solution: string
