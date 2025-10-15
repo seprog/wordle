@@ -72,6 +72,7 @@ function Main({ wordleQueue, level, nextWordle }: {
   nextWordle: () => void
 }) {
   const [ correctLevels, setCorrectLevels ] = useState(0)
+  const [ score, setScore ] = useState(0)
   return (
     <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-2xl'>
       { wordleQueue[level]
@@ -79,17 +80,18 @@ function Main({ wordleQueue, level, nextWordle }: {
             wordle={
               wordleQueue[level]
             }
-            nextWordle={ (solved: boolean) => {
-              setCorrectLevels((correctLevels) => correctLevels + (solved ? 1 : 0))
-              nextWordle()
+            nextWordle={ nextWordle }
+            setSolved={ (attempts: number) => {
+              setCorrectLevels((correctLevels) => correctLevels + 1)
+              setScore((score) => score + attempts**-1)
             } }
           />
         : <>
-          <h2 className='text-2xl text-center text-purple-500 dark:text-rose-500 font-semibold'>Category completed!</h2>
+          <h2 className='text-2xl text-center text-sky-500 dark:text-orange-500 font-semibold'>Category completed!</h2>
           <p className='text-lg text-center'>🎉</p>
         </>
       }
-      <Progress level={ level } correctLevels={ correctLevels } levels={ wordleQueue.length } />
+      <Progress level={ level } correctLevels={ correctLevels } score={ score } levels={ wordleQueue.length } />
     </main>
   )
 }
@@ -106,9 +108,10 @@ function Footer({ category, seed }: {
   )
 }
 
-function Progress({ level, correctLevels, levels }: {
+function Progress({ level, correctLevels, score, levels }: {
   level: number
   correctLevels: number
+  score: number
   levels: number
 }) {
   return (
@@ -122,7 +125,7 @@ function Progress({ level, correctLevels, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600 h-full rounded-full` }
+          className={ `absolute bg-gradient-to-br from-slate-400 to-slate-600 dark:from-slate-400 dark:to-slate-600 h-full rounded-full` }
         />
         <motion.div
           animate={ {
@@ -131,7 +134,7 @@ function Progress({ level, correctLevels, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 h-full rounded-full` }
+          className={ `absolute bg-gradient-to-br from-sky-400 to-sky-600 dark:from-orange-400 dark:to-orange-600 h-full rounded-full` }
         />
         <motion.div
           animate={ {
@@ -140,10 +143,20 @@ function Progress({ level, correctLevels, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full rounded-full` }
+          className={ `absolute bg-gradient-to-br from-rose-400 to-rose-600 h-full rounded-full` }
+        />
+        <motion.div
+          animate={ {
+            width: `${ Math.floor(score / levels * 100) }%`,
+            transition: {
+              duration: 1
+            }
+          } }
+          className={ `absolute bg-gradient-to-br from-emerald-400 to-emerald-600 h-full rounded-full` }
         />
       </div>
-      <p>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
+      <p className='text-emerald-500'>{ Math.floor(score / (level || 1) * 100) }%</p>
+      <p className='text-purple-500 dark:text-rose-500'>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
     </div>
   )
 }

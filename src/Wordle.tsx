@@ -12,21 +12,32 @@ type KnownInformation = {
 }
 
 
-export function Wordle({ wordle, nextWordle }: {
+export function Wordle({ wordle, nextWordle, setSolved }: {
   wordle: {
     solution: string
     hints: string[]
   }
-  nextWordle: (solved: boolean) => void
+  nextWordle: () => void
+  setSolved: (attempts: number) => void
 }) {
   const { solution, hints } = wordle
 
   const [ guesses, setGuesses ] = useState<string[]>([])
-  const makeGuess = (guess: string) =>
-    (guess && guess.trim().length === solution.length) && setGuesses((guesses) => [
-      ...guesses,
-      guess.trim()
-    ])
+  function makeGuess(guess: string) {
+    if (guess && guess.trim().length === solution.length) {
+      setGuesses((guesses) => [
+        ...guesses,
+        guess.trim()
+      ])
+      if (isSolved(guesses, solution)) {
+        setSolved(guesses.length)
+        setGuesses((guesses) => [
+          ...guesses,
+          ...Array(hints.length - guesses.length).fill(solution)
+        ])
+      }
+    }
+  }
 
   return (
     <form
@@ -36,7 +47,7 @@ export function Wordle({ wordle, nextWordle }: {
           makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
         else {
           setGuesses(() => [])
-          nextWordle(knownInformation(guesses, solution).positions.every(({ is }) => is))
+          nextWordle()
         }
       } }
       className='flex flex-col'
@@ -197,3 +208,8 @@ function scramble(hint: string) {
     ).join('')
   ).join(' ')
 }
+
+const isSolved = (
+  guesses: string[],
+  solution: string
+) => knownInformation(guesses, solution).positions.every(({ is }) => is)
