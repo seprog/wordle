@@ -31,7 +31,7 @@ export default function App() {
   const [ level, setLevel ] = useState(0)
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center'>
       <Header />
       { wordleQueue
         ? <Main
@@ -71,15 +71,16 @@ function Main({ wordleQueue, level, nextWordle }: {
   nextWordle: () => void
 }) {
   return (
-    <main className='max-w-3xl mx-auto p-2'>{
+    <main className='max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'>{
       wordleQueue[level]
-      ? <Wordle
-        wordle={
-          wordleQueue[level]
-        }
-        nextWordle={ nextWordle }
-      />
-      : <>
+      ? <>
+        <Wordle
+          wordle={
+            wordleQueue[level]
+          }
+          nextWordle={ nextWordle }
+        />
+      </> : <>
         <h2 className='text-2xl text-center text-purple-500 dark:text-rose-500 font-semibold'>Category completed!</h2>
         <p className='text-lg text-center'>🎉</p>
       </>

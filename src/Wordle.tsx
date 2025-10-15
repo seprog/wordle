@@ -39,7 +39,7 @@ export function Wordle({ wordle, nextWordle }: {
           nextWordle()
         }
       } }
-      className='flex flex-col p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'
+      className='flex flex-col'
     >
       <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
       { guesses.length < hints.length
