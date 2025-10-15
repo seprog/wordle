@@ -69,9 +69,7 @@ function WordleTable({ guesses, hints, solution }:{
         { hints.map((hint, round) => (
           <tr key={ round } className={`${ round === guesses.length ? 'font-semibold' : '' }`}>
             <td className='px-2 py-2'>
-              <p className='font-mono text-end'>
-                { round + 1 }
-              </p>
+              <p className='font-mono text-end'>{ round + 1 }</p>
             </td>
             <td className='px-2 py-2'>{
               guesses[round]
@@ -81,11 +79,7 @@ function WordleTable({ guesses, hints, solution }:{
                 : <FutureGuess known={ knownInformation(guesses, solution) } />
             }</td>
             <td className='px-2 py-2'>
-              <p>{
-                round <= guesses.length
-                ? hint
-                : '*'.repeat(hint.length)
-              }</p>
+              <p>{ round <= guesses.length ? hint : scramble(hint) }</p>
             </td>
           </tr>
         )) }
@@ -184,4 +178,13 @@ function knownInformation(
     })),
     occurences: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : '')
   }
+}
+
+function scramble(hint: string) {
+  const replaceChars = 'abcdefghijklmnopqrstuvwkyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  return hint.split(' ').map(
+    (word) => word.split('').map(
+      (c) => replaceChars.includes(c) ? replaceChars[Math.floor(Math.random() * replaceChars.length)] : c
+    ).join('')
+  ).join(' ')
 }
