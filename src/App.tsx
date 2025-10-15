@@ -125,7 +125,7 @@ function Progress({ level, correctLevels, score, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-slate-400 to-slate-600 dark:from-slate-400 dark:to-slate-600 h-full rounded-full` }
+          className={ 'absolute bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600 h-full rounded-full' }
         />
         <motion.div
           animate={ {
@@ -134,7 +134,7 @@ function Progress({ level, correctLevels, score, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-sky-400 to-sky-600 dark:from-orange-400 dark:to-orange-600 h-full rounded-full` }
+          className={ 'absolute bg-gradient-to-br from-red-400 to-red-500 dark:from-red-500 dark:to-red-600 h-full rounded-full' }
         />
         <motion.div
           animate={ {
@@ -143,7 +143,7 @@ function Progress({ level, correctLevels, score, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-rose-400 to-rose-600 h-full rounded-full` }
+          className={ 'absolute bg-gradient-to-br from-yellow-400 to-yellow-500 dark:from-yellow-500 dark:to-yellow-600 h-full rounded-full' }
         />
         <motion.div
           animate={ {
@@ -152,11 +152,11 @@ function Progress({ level, correctLevels, score, levels }: {
               duration: 1
             }
           } }
-          className={ `absolute bg-gradient-to-br from-emerald-400 to-emerald-600 h-full rounded-full` }
+          className={ 'absolute bg-gradient-to-br from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 h-full rounded-full' }
         />
       </div>
-      <p className='text-emerald-500'>{ Math.floor(score / (level || 1) * 100) }%</p>
-      <p className='text-purple-500 dark:text-rose-500'>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
+      <p className='text-green-500'>{ Math.floor(score / (level || 1) * 100) }%</p>
+      <p className='text-yellow-500'>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
     </div>
   )
 }
