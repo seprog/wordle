@@ -1,18 +1,246 @@
-DEBUG:
-  - 161:
-    - ANTIFA
-    - AFA
+# AI-GENERATED: Gemini 2.5 Flash
+german:
+  - 1918:
+      - When did World War I end?
+      - What year marked the end of the German Empire?
+      - What year was the Weimar Republic established?
+  - 1933:
+      - When did Hitler become Chancellor?
+      - What year did the Nazi Party seize power?
+      - When was the Enabling Act passed?
+  - 1945:
+      - When did World War II end in Europe?
+      - What year was Germany divided into occupation zones?
+      - When did the Third Reich collapse?
+  - 1949:
+      - When was the Federal Republic of Germany founded?
+      - What year was the German Democratic Republic established?
+      - When did Germany officially split?
+  - 1961:
+      - When was the Berlin Wall constructed?
+      - What year did the East German government erect the Wall?
+      - When did the separation of East and West Berlin become physical?
+  - 1989:
+      - When did the Berlin Wall fall?
+      - What year marked the peaceful revolution in East Germany?
+      - When did the border between East and West Germany open?
+  - 1990:
+      - When was German reunification?
+      - What year did East and West Germany merge?
+      - When did Germany become a single sovereign state again?
+  - 1900:
+      - What year was the German Civil Code enacted?
+      - When did the turn of the 20th century happen?
+      - What year did Germany enter the new century?
+  - 1914:
+      - When did World War I begin?
+      - What year did Germany declare war on Russia and France?
+      - When was Archduke Franz Ferdinand assassinated?
+  - 1871:
+      - When was the German Empire proclaimed?
+      - What year marked the unification of Germany under Bismarck?
+      - When did Wilhelm I become German Emperor?
+  - 1848:
+      - When were the German revolutions?
+      - What year saw widespread uprisings across German states?
+      - When was the Frankfurt Parliament convened?
+  - 1806:
+      - When did the Holy Roman Empire dissolve?
+      - What year did Napoleon defeat Austria and Russia?
+      - When did the Confederation of the Rhine form?
+  - 1648:
+      - When was the Peace of Westphalia signed?
+      - What year ended the Thirty Years' War?
+      - When did European states establish modern diplomacy?
+  - 1517:
+      - When did Martin Luther post his Ninety-five Theses?
+      - What year is considered the start of the Reformation?
+      - When did the Protestant movement begin in Germany?
+  - 1440:
+      - When did Johannes Gutenberg invent the printing press?
+      - What year revolutionized information dissemination?
+      - When was the movable type printing developed?
+  - 962:
+      - When was the Holy Roman Empire founded?
+      - What year did Otto I become Emperor?
+      - When was the beginning of the German monarchy?
+  - 843:
+      - When was the Treaty of Verdun signed?
+      - What year divided the Carolingian Empire?
+      - When did the East Frankish Kingdom emerge?
+  - 788:
+      - When did Charlemagne conquer Bavaria?
+      - What year saw the consolidation of Frankish power?
+      - When did the Carolingian Empire expand significantly?
+  - 500:
+      - What year roughly marks the end of the Roman Empire in the West?
+      - When did Germanic tribes begin to form kingdoms?
+      - What year is often considered the start of the Early Middle Ages?
+  - 375:
+      - When did the Huns begin their invasion of Europe?
+      - What year marked the start of the Great Migration?
+      - When did Germanic tribes move into Roman territory?
 
-  - 1312:
-    - Es bedarf längerer Texte um das UI vernünftig auszuprobieren.
-    - Es bedarf längerer Texte um das UI vernünftig auszuprobieren. Wirklich, sehr wichtig!
-    - ACAB
-    - Zwölf nach eins
-    - 41 * 2^5
-LEA:
-  - Ich liebe Sep:
-    - Das ist die Wahrheit.
-    - Weil du toll bist.
-  - Ich liebe Sep:
-    - Das ist die Wahrheit.
-    - Weil du toll bist.
+philosophy:
+  - 1637:
+      - When did Descartes publish Discourse on Method?
+      - What year was "Cogito, ergo sum" articulated?
+      - When did modern rationalism begin to take shape?
+  - 1677:
+      - When was Spinoza's Ethics published posthumously?
+      - What year saw the release of his major work?
+      - When did monism gain a strong philosophical voice?
+  - 1689:
+      - When did Locke publish Two Treatises of Government?
+      - What year influenced Enlightenment political thought?
+      - When were fundamental ideas of liberalism introduced?
+  - 1781:
+      - When did Kant publish Critique of Pure Reason?
+      - What year marked a turning point in epistemology?
+      - When was transcendental idealism first outlined?
+  - 1807:
+      - When did Hegel publish Phenomenology of Spirit?
+      - What year introduced the concept of dialectic?
+      - When did German idealism reach its peak?
+  - 1843:
+      - When did Kierkegaard publish Either/Or?
+      - What year explored existential choices and despair?
+      - When did the foundations of existentialism emerge?
+  - 1883:
+      - When did Nietzsche's Thus Spoke Zarathustra appear?
+      - What year challenged traditional morality and values?
+      - When did the "will to power" become a central theme?
+  - 1927:
+      - When did Heidegger publish Being and Time?
+      - What year explored fundamental ontology and Dasein?
+      - When did continental philosophy experience a shift?
+  - 1953:
+      - When were Wittgenstein's Philosophical Investigations published?
+      - What year influenced linguistic philosophy?
+      - When did the concept of language games gain prominence?
+  - 1900:
+      - When did Husserl publish Logical Investigations?
+      - What year founded the phenomenological movement?
+      - When did the study of consciousness become central?
+  - 1748:
+      - When did Hume publish An Enquiry Concerning Human Understanding?
+      - What year presented his skepticism about causation?
+      - When did empiricism reach a critical juncture?
+  - 1762:
+      - When did Rousseau publish The Social Contract?
+      - What year influenced political philosophy and revolutions?
+      - When did the idea of popular sovereignty gain traction?
+  - 1818:
+      - When did Schopenhauer publish The World as Will and Representation?
+      - What year introduced his pessimistic philosophy?
+      - When did the concept of blind will become prominent?
+  - 1867:
+      - When was Marx's Das Kapital, Volume 1, published?
+      - What year critiqued capitalism and its contradictions?
+      - When did the theory of historical materialism develop?
+  - 1910:
+      - When did Russell and Whitehead publish Principia Mathematica?
+      - What year aimed to reduce mathematics to logic?
+      - When did analytic philosophy gain momentum?
+  - 1930:
+      - When did the Vienna Circle publish its manifesto?
+      - What year advocated for logical positivism?
+      - When did verificationism become a key principle?
+  - 1960:
+      - When did Gadamer publish Truth and Method?
+      - What year explored hermeneutics and interpretation?
+      - When did philosophical hermeneutics gain prominence?
+  - 1971:
+      - When did Rawls publish A Theory of Justice?
+      - What year revitalized political philosophy?
+      - When were principles of justice as fairness proposed?
+  - 1981:
+      - When did Habermas publish The Theory of Communicative Action?
+      - What year explored communicative rationality?
+      - When did critical theory address communicative ethics?
+  - 2000:
+      - What year marked the turn of the new millennium?
+      - When did contemporary philosophy face new challenges?
+      - What year saw ongoing debates in various philosophical fields?
+
+history:
+  - 1066:
+      - When was the Battle of Hastings?
+      - What year did William the Conqueror invade England?
+      - When did the Norman Conquest occur?
+  - 1453:
+      - When did Constantinople fall to the Ottomans?
+      - What year marked the end of the Byzantine Empire?
+      - When did the Hundred Years' War conclude?
+  - 1492:
+      - When did Columbus reach the Americas?
+      - What year marked the start of European colonization?
+      - When was the Reconquista completed in Spain?
+  - 1517:
+      - When did the Protestant Reformation begin?
+      - What year did Martin Luther post his theses?
+      - When did religious changes sweep across Europe?
+  - 1776:
+      - When was the Declaration of Independence signed?
+      - What year did the American Revolution gain momentum?
+      - When did the United States declare independence?
+  - 1789:
+      - When did the French Revolution begin?
+      - What year was the storming of the Bastille?
+      - When did significant political and social upheaval occur in France?
+  - 1815:
+      - When was the Battle of Waterloo?
+      - What year marked the end of the Napoleonic Wars?
+      - When was the Congress of Vienna held?
+  - 1865:
+      - When did the American Civil War end?
+      - What year was Abraham Lincoln assassinated?
+      - When did slavery officially end in the US?
+  - 1914:
+      - When did World War I begin?
+      - What year was Archduke Franz Ferdinand assassinated?
+      - When did the major European powers go to war?
+  - 1918:
+      - When did World War I end?
+      - What year was the Treaty of Versailles signed?
+      - When did the armistice take effect?
+  - 1939:
+      - When did World War II begin?
+      - What year did Germany invade Poland?
+      - When did France and Britain declare war?
+  - 1945:
+      - When did World War II end?
+      - What year were the atomic bombs dropped on Japan?
+      - When was the United Nations founded?
+  - 1962:
+      - When was the Cuban Missile Crisis?
+      - What year brought the world to the brink of nuclear war?
+      - When did the US and Soviet Union face off over Cuba?
+  - 1989:
+      - When did the Berlin Wall fall?
+      - What year marked the end of the Cold War?
+      - When did Eastern European communist regimes collapse?
+  - 2001:
+      - When were the September 11th attacks?
+      - What year saw a major terrorist event in the US?
+      - When did the War on Terror begin?
+  - 332:
+      - When did Alexander the Great conquer Egypt?
+      - What year marked the beginning of the Ptolemaic dynasty?
+      - When did Hellenistic influence spread to Egypt?
+  - 476:
+      - When did the Western Roman Empire fall?
+      - What year is often cited as the end of ancient history?
+      - When was Romulus Augustulus deposed?
+  - 622:
+      - When did the Islamic calendar begin (Hijra)?
+      - What year did Prophet Muhammad migrate to Medina?
+      - When did Islam establish its first community?
+  - 800:
+      - When was Charlemagne crowned Holy Roman Emperor?
+      - What year symbolized the revival of the Roman Empire in the West?
+      - When did the Carolingian Renaissance flourish?
+  - 1215:
+      - When was the Magna Carta signed?
+      - What year limited the power of the English monarch?
+      - When were foundational principles of constitutional law established?
