@@ -71,7 +71,7 @@ function Main({ wordleQueue, level, nextWordle }: {
   nextWordle: () => void
 }) {
   return (
-    <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'>
+    <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-2xl'>
       { wordleQueue[level]
         ? <Wordle
             wordle={

@@ -46,12 +46,12 @@ export function Wordle({ wordle, nextWordle }: {
         ? <input
             type='submit'
             value={ 'Submit' }
-            className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-lg'
+            className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
           />
         : <input
             type='submit'
             value={ 'Next Wordle' }
-            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 font-semibold rounded-lg'
+            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 font-semibold rounded-xl'
           />
       }
     </form>
@@ -153,7 +153,7 @@ function GuessInput({ known }: {
         onChange={ ({ currentTarget: { value } }) => setGuessInput(
           () => value.trimStart().slice(0, known.positions.length).toUpperCase()
         ) }
-        className='py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-slate-300 dark:border-slate-700 rounded'
+        className='py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-slate-400 dark:border-slate-600 rounded-lg'
       />
       <div className='absolute font-mono text-center pointer-events-none'>
         { guessInput.split('').map((c, n) => (
