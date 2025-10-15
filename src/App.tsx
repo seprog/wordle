@@ -117,6 +117,15 @@ function Progress({ level, correctLevels, levels }: {
       <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'>
         <motion.div
           animate={ {
+            width: `${ Math.floor(Math.min(level+1, levels) / levels * 100) }%`,
+            transition: {
+              duration: 1
+            }
+          } }
+          className={ `absolute bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600 h-full rounded-full` }
+        />
+        <motion.div
+          animate={ {
             width: `${ Math.floor(level / levels * 100) }%`,
             transition: {
               duration: 1
