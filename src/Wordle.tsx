@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'motion/react'
 
 
 type KnownInformation = {
@@ -52,16 +53,18 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
     >
       <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
       { guesses.length < hints.length
-        ? <input
+        ? <motion.input
             type='submit'
             value={ 'Submit' }
             className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
+            whileTap={{ scale: .95 }}
           />
         : <>
-          <input
+          <motion.input
             type='submit'
             value={ 'Next Wordle' }
             className='p-2 bg-gradient-to-br from-emerald-400 to-emerald-500 dark:from-rose-500 dark:to-rose-600 font-semibold rounded-xl'
+            whileTap={{ scale: .95 }}
           />
           <span className='text-lg font-semibold'><PastGuess guess={solution} known={ knownInformation(guesses, solution) } /></span>
         </>
