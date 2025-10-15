@@ -41,12 +41,12 @@ export default function App() {
         />
         : <h2 className='text-2xl text-center text-slate-500'>Loading...</h2>
       }
-      <Footer
-        category={ category ?? '' }
-        seed={ seed ?? -1 }
-        level={ level ?? -1 }
-        levels={ wordleQueue?.length ?? -1 }
-      />
+      { category !== undefined && seed !== undefined && (
+        <Footer
+          category={ category }
+          seed={ seed }
+        />
+      ) }
     </div>
   )
 }
@@ -71,34 +71,47 @@ function Main({ wordleQueue, level, nextWordle }: {
   nextWordle: () => void
 }) {
   return (
-    <main className='max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'>{
-      wordleQueue[level]
-      ? <>
-        <Wordle
-          wordle={
-            wordleQueue[level]
-          }
-          nextWordle={ nextWordle }
-        />
-      </> : <>
-        <h2 className='text-2xl text-center text-purple-500 dark:text-rose-500 font-semibold'>Category completed!</h2>
-        <p className='text-lg text-center'>🎉</p>
-      </>
-    }</main>
+    <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'>
+      { wordleQueue[level]
+        ? <Wordle
+            wordle={
+              wordleQueue[level]
+            }
+            nextWordle={ nextWordle }
+          />
+        : <>
+          <h2 className='text-2xl text-center text-purple-500 dark:text-rose-500 font-semibold'>Category completed!</h2>
+          <p className='text-lg text-center'>🎉</p>
+        </>
+      }
+      <Progress level={level} levels={wordleQueue.length} />
+    </main>
   )
 }
 
-function Footer({ category, seed, level, levels }: {
+function Footer({ category, seed }: {
   category: string
   seed: number
+}) {
+  return (
+    <footer className='fixed left-0 right-0 bottom-1'>
+      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed).toString() }</span></p>
+      <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
+    </footer>
+  )
+}
+
+function Progress({ level, levels }: {
   level: number
   levels: number
 }) {
   return (
-    <footer className='fixed left-0 right-0 bottom-1'>
-      { (level < levels) && <p className='text-xs text-center text-slate-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p> }
-      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }</span></p>
-      <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
-    </footer>
+    <div className='flex flex-row items-center gap-1 text-xs text-slate-700 dark:text-slate-300'>
+      <p>{ `(${Math.min(level+1, levels)}/${levels})` }</p>
+      <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full overflow-clip rounded-full'>
+        <div className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full w-[${Math.floor(level / levels * 100)}%]`}></div>
+      </div>
+      <p>{ `${Math.floor(level / levels * 100)}%` }</p>
+    </div>
   )
 }
