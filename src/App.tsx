@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { motion } from 'motion/react'
 
 import { Wordle } from './Wordle'
 
@@ -109,10 +110,15 @@ function Progress({ level, levels }: {
   return (
     <div className='flex flex-row items-center gap-1 text-xs text-slate-700 dark:text-slate-300'>
       <p>{ `(${Math.min(level+1, levels)}/${levels})` }</p>
-      <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full overflow-clip rounded-full'>
-        <div
-          className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full`}
-          style={{ width: percentageString }}
+      <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'>
+        <motion.div
+          animate={{
+            width: percentageString,
+            transition: {
+              duration: 1
+            }
+          }}
+          className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full rounded-full`}
         />
       </div>
       <p>{ percentageString }</p>
