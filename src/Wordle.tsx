@@ -54,7 +54,7 @@ export function Wordle({ wordle, nextWordle }: {
                 guesses[round]
                 ? <PastGuess guess={guesses[round]} known={ knownInformation(guesses, solution) } />
                 : round == guesses.length
-                  ? <GuessInput />
+                  ? <GuessInput known={ knownInformation(guesses, solution) } />
                   : <FutureGuess known={ knownInformation(guesses, solution) } />
               }</td>
               <td className='px-2 py-2'>
@@ -119,14 +119,40 @@ function FutureGuess({ known }: {
   )
 }
 
-function GuessInput() {
+function GuessInput({ known }: {
+  known: KnownInformation
+}) {
+  const [ guessInput, setGuessInput ] = useState('')
+
   return (
-    <input
-      type='text'
-      name='guess'
-      autoFocus
-      className='px-2 py-1 min-w-full font-mono text-center border border-gray-300 dark:border-gray-700 rounded'
-    />
+    <div className='relative flex items-center justify-center'>
+      <input
+        type='text'
+        name='guess'
+        autoFocus
+        value={ guessInput }
+        onChange={ ({ currentTarget: { value } }) => setGuessInput(
+          () => value.trimStart().slice(0, known.positions.length).toUpperCase()
+        ) }
+        className='px-2 py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-gray-300 dark:border-gray-700 rounded'
+      />
+      <div className='absolute font-mono text-center pointer-events-none'>
+        { guessInput.split('').map((c, n) => (
+          <span
+            key={ n }
+            className={
+              known.positions[n]?.is === c
+              ? 'text-green-500'
+              : known.positions[n]?.is !== undefined || known.positions[n]!.isNot.includes(c)
+                ? 'text-red-500'
+                : known.occurences.includes(c)
+                  ? 'text-yellow-500'
+                  : 'text-slate-900 dark:text-slate-100'
+            }
+          >{ c }</span>
+        )) }
+      </div>
+    </div>
   )
 }
 
