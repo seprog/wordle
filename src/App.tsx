@@ -80,7 +80,10 @@ function Main({ wordleQueue, level, nextWordle }: {
         }
         nextWordle={ nextWordle }
       />
-      : <h2 className='text-2xl text-center text-violet-500'>Category completed!</h2>
+      : <>
+        <h2 className='text-2xl text-center text-violet-500'>Category completed!</h2>
+        <p className='text-lg text-center'>🎉</p>
+      </>
     }</main>
   )
 }
