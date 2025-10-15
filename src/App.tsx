@@ -126,8 +126,8 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
           animate={ {
             width: `${ Math.round(Math.min(level+1, levels) / levels * 100) }%`,
             transition: {
-              delay: 0 * 1,
-              duration: 1
+              delay: 0 * .8,
+              duration: 1.2
             }
           } }
           className={ 'absolute bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600 h-full rounded-full' }
@@ -136,8 +136,8 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
           animate={ {
             width: `${ Math.round((level + (isDone ? 1 : 0)) / levels * 100) }%`,
             transition: {
-              delay: 1 * 1,
-              duration: 1
+              delay: 1 * .8,
+              duration: 1.2
             }
           } }
           className={ 'absolute bg-gradient-to-br from-red-400 to-red-500 dark:from-red-500 dark:to-red-600 h-full rounded-full' }
@@ -146,8 +146,8 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
           animate={ {
             width: `${ Math.round(correctLevels / levels * 100) }%`,
             transition: {
-              delay: 2 * 1,
-              duration: 1
+              delay: 2 * .8,
+              duration: 1.2
             }
           } }
           className={ 'absolute bg-gradient-to-br from-yellow-400 to-yellow-500 dark:from-yellow-500 dark:to-yellow-600 h-full rounded-full' }
@@ -156,8 +156,8 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
           animate={ {
             width: `${ Math.round(score / levels * 100) }%`,
             transition: {
-              delay: 3 * 1,
-              duration: 1
+              delay: 3 * .8,
+              duration: 1.2
             }
           } }
           className={ 'absolute bg-gradient-to-br from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 h-full rounded-full' }
