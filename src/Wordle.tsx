@@ -101,7 +101,7 @@ function FutureGuess({ guesses, solution }: {
         <span
           key={ n }
           className={
-            guesses.map((guess) => guess.at(n)).includes(c)
+            guesses.some((guess) => guess.at(n) === c)
             ? 'text-green-500'
             : 'text-gray-500'
           }
