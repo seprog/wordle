@@ -67,21 +67,25 @@ function WordleTable({ guesses, hints, solution }:{
       </thead>
       <tbody>
         { hints.map((hint, round) => (
-          <tr key={round} className={`${round === guesses.length ? 'font-semibold' : ''}`}>
+          <tr key={ round } className={`${ round === guesses.length ? 'font-semibold' : '' }`}>
             <td className='px-2 py-2'>
               <p className='font-mono text-end'>
-                {round + 1}
+                { round + 1 }
               </p>
             </td>
-            <td className='px-2 py-2'>{guesses[round]
-              ? <PastGuess guess={guesses[round]} known={knownInformation(guesses, solution)} />
-              : round == guesses.length
-                ? <GuessInput known={knownInformation(guesses, solution)} />
-                : <FutureGuess known={knownInformation(guesses, solution)} />}</td>
+            <td className='px-2 py-2'>{
+              guesses[round]
+              ? <PastGuess guess={ guesses[round] } known={ knownInformation(guesses, solution) } />
+              : round === guesses.length
+                ? <GuessInput known={ knownInformation(guesses, solution) } />
+                : <FutureGuess known={ knownInformation(guesses, solution) } />
+            }</td>
             <td className='px-2 py-2'>
-              <p>{round <= guesses.length
+              <p>{
+                round <= guesses.length
                 ? hint
-                : '*'.repeat(hint.length)}</p>
+                : '*'.repeat(hint.length)
+              }</p>
             </td>
           </tr>
         )) }
