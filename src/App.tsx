@@ -40,7 +40,7 @@ export default function App() {
           level={ level }
           nextWordle={ () => setLevel((level) => level + 1) }
         />
-        : <h2 className='text-2xl text-center text-gray-500'>Loading...</h2>
+        : <h2 className='text-2xl text-center text-slate-500'>Loading...</h2>
       }
       <Footer
         category={ category ?? '' }
@@ -56,7 +56,7 @@ function Header() {
   return (
     <header className='my-6'>
       <h1 className='text-4xl text-center font-bold'>Wordle</h1>
-      <p className='text-sm text-center text-gray-500'>
+      <p className='text-sm text-center text-slate-500'>
         by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
       </p>
     </header>
@@ -96,9 +96,9 @@ function Footer({ category, seed, level, levels }: {
 }) {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
-      <p className='text-xs text-center text-gray-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p>
-      <p className='text-xs text-center text-gray-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }/{ factorial(levels) }</span></p>
-      <p className='text-xs text-center text-gray-500'>category: <span className='font-semibold'>{ category }</span></p>
+      <p className='text-xs text-center text-slate-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p>
+      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }/{ factorial(levels) }</span></p>
+      <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
     </footer>
   )
 }

@@ -121,7 +121,7 @@ function FutureGuess({ known }: {
           className={
             position.is
             ? 'text-green-500'
-            : 'text-gray-500'
+            : 'text-slate-500'
           }
         >{ position.is ?? '-' }</span>
       )) }
@@ -146,7 +146,7 @@ function GuessInput({ known }: {
         onChange={ ({ currentTarget: { value } }) => setGuessInput(
           () => value.trimStart().slice(0, known.positions.length).toUpperCase()
         ) }
-        className='py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-gray-300 dark:border-gray-700 rounded'
+        className='py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-slate-300 dark:border-slate-700 rounded'
       />
       <div className='absolute font-mono text-center pointer-events-none'>
         { guessInput.split('').map((c, n) => (
