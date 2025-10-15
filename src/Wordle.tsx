@@ -23,6 +23,7 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
   setSolved: (attempts: number) => void
 }) {
   const { solution, hints } = wordle
+  console.debug(wordle)
 
   const [ guesses, setGuesses ] = useState<string[]>([])
   function makeGuess(guess: string) {
@@ -196,14 +197,16 @@ function knownInformation(
   solution: string
 ): KnownInformation {
   const solutionArray = solution.split('')
-  return {
+  const known = {
     positions: solutionArray.map((c, n) => ({
       is: guesses.some((guess) => guess.at(n) === c) ? c : undefined,
       isNot: guesses.map((guess) => guess.at(n) !== c ? guess.at(n) : undefined).filter((c) => c !== undefined)
     })),
-    has: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : ''),
+    has: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : undefined).filter((c) => c !== undefined),
     hasNot: guesses.flatMap((guess) => guess.split('').filter((c) => !solutionArray.includes(c)))
   }
+  console.debug(known)
+  return known
 }
 
 function scramble(hint: string) {
