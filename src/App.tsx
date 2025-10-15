@@ -12,7 +12,8 @@ export default function App() {
   const [ category, setCategory ] = useState<string>()
   const [ seed, setSeed ] = useState<number>()
   const [ wordleQueue, setWordleQueue ] = useState<{
-    [solution: string]: string[]
+    solution: string
+    hints: string[]
   }[]>()
 
   useEffect(() => {
@@ -64,7 +65,8 @@ function Header() {
 
 function Main({ wordleQueue, level, nextWordle }: {
   wordleQueue: {
-    [solution: string]: string[]
+    solution: string
+    hints: string[]
   }[]
   level: number
   nextWordle: () => void
@@ -73,7 +75,9 @@ function Main({ wordleQueue, level, nextWordle }: {
     <main className='max-w-3xl mx-auto px-6'>{
       wordleQueue[level]
       ? <Wordle
-        wordle={ wordleQueue[level] }
+        wordle={
+          wordleQueue[level]
+        }
         nextWordle={ nextWordle }
       />
       : <h2 className='text-2xl text-center text-violet-500'>You played ALL the Wordles!</h2>

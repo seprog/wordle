@@ -10,8 +10,15 @@ export function getWordleQueue(category?: string, seed?: number) {
   return {
     category,
     ...getPermutation<{
-      [solution: string]: string[]
-    }>(wordles[category], seed)
+      solution: string
+      hints: string[]
+    }>(
+      wordles[category].map((wordle: {[solution: string]: string[]}) => ({
+        solution: Object.keys(wordle)[0]!,
+        hints: wordle[Object.keys(wordle)[0]!]!
+      })),
+      seed
+    )
   }
 }
 

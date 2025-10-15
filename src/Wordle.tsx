@@ -5,12 +5,12 @@ import { useState } from 'react'
 
 export function Wordle({ wordle, nextWordle }: {
   wordle: {
-    [solution: string]: string[]
+    solution: string
+    hints: string[]
   }
   nextWordle: () => void
 }) {
-  const solution = Object.keys(wordle).pop()!
-  const hints = wordle[solution]!
+  const { solution, hints } = wordle
 
   const [ guesses, setGuesses ] = useState<string[]>([])
   const makeGuess = (guess: string) =>
