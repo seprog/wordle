@@ -29,10 +29,11 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
   function makeGuess(guess: string) {
     if (!guess || guess.trim().length !== solution.length) return
 
-    const solved = isSolved([ ...guesses, guess.trim() ], solution)
+    const solved = knownInformation([ ...guesses, guess.trim() ], solution).positions.every(({ is }) => is)
 
     if (solved || guesses.length >= hints.length - 1)
       setSolved(solved ? guesses.length + 1 : 0)
+
     setGuesses((guesses) => [
       ...guesses,
       guess.trim(),
@@ -218,8 +219,3 @@ function scramble(hint: string) {
     ).join('')
   ).join(' ')
 }
-
-const isSolved = (
-  guesses: string[],
-  solution: string
-) => knownInformation(guesses, solution).positions.every(({ is }) => is)
