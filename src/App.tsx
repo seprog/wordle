@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 
 import { Wordle } from './Wordle'
-import { factorial } from './lib/wordleHelper'
 
 import './index.css'
 
@@ -96,8 +95,8 @@ function Footer({ category, seed, level, levels }: {
 }) {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
-      <p className='text-xs text-center text-slate-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p>
-      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }/{ factorial(levels) }</span></p>
+      { (level < levels) && <p className='text-xs text-center text-slate-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p> }
+      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }</span></p>
       <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
     </footer>
   )
