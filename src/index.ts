@@ -10,11 +10,9 @@ const server = serve({
         const searchParams = new URL(req.url).searchParams
 
         const categoryParam = searchParams.get('category')
-        const seedParam = searchParams.get('seed')
 
         const result = getWordleQueue(
-          (categoryParam !== null) ? categoryParam : undefined,
-          (seedParam !== null) ? Number.parseInt(seedParam) : undefined
+          (categoryParam !== null) ? categoryParam : undefined
         )
 
         return new Response(JSON.stringify(result), {

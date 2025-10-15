@@ -10,7 +10,6 @@ import './index.css'
 
 export default function App() {
   const [ category, setCategory ] = useState<string>()
-  const [ seed, setSeed ] = useState<number>()
   const [ wordleQueue, setWordleQueue ] = useState<{
     solution: string
     hints: string[]
@@ -19,15 +18,14 @@ export default function App() {
   useEffect(() => {
     fetch(`/api/queue${window.location.search}`)
       .then(r => r.json())
-      .then(({ category, seed, permutation }) => {
+      .then(({ category, wordleQueue }) => {
         setCategory(() => category)
-        setSeed(() => seed)
-        setWordleQueue(() => permutation)
+        setWordleQueue(() => wordleQueue)
       })
       .catch(() => {
         setWordleQueue(() => [])
       })
-  }, [window.location.search, setCategory, setSeed, setWordleQueue])
+  }, [window.location.search, setCategory, setWordleQueue])
 
   const [ level, setLevel ] = useState(0)
 
@@ -42,12 +40,7 @@ export default function App() {
         />
         : <h2 className='text-2xl text-center text-slate-500'>Loading...</h2>
       }
-      { category !== undefined && seed !== undefined && (
-        <Footer
-          category={ category }
-          seed={ seed }
-        />
-      ) }
+      { category !== undefined && <Footer category={ category } /> }
     </div>
   )
 }
@@ -99,13 +92,11 @@ function Main({ wordleQueue, level, nextWordle }: {
   )
 }
 
-function Footer({ category, seed }: {
+function Footer({ category }: {
   category: string
-  seed: number
 }) {
   return (
     <footer className='fixed left-0 right-0 bottom-1'>
-      <p className='text-xs text-center text-slate-500'>seed: <span className='font-semibold'>{ (seed).toString() }</span></p>
       <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
     </footer>
   )
