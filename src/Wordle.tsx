@@ -65,6 +65,7 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
           <motion.input
             type='submit'
             value={ 'Next Wordle' }
+            autoFocus
             className='p-2 bg-gradient-to-br from-emerald-300 to-emerald-500 dark:from-rose-500 dark:to-rose-700 font-semibold rounded-xl'
             whileTap={{ scale: .95 }}
           />
