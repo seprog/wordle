@@ -105,13 +105,17 @@ function Progress({ level, levels }: {
   level: number
   levels: number
 }) {
+  const percentageString = `${Math.floor(level / levels * 100)}%`
   return (
     <div className='flex flex-row items-center gap-1 text-xs text-slate-700 dark:text-slate-300'>
       <p>{ `(${Math.min(level+1, levels)}/${levels})` }</p>
       <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full overflow-clip rounded-full'>
-        <div className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full w-[${Math.floor(level / levels * 100)}%]`}></div>
+        <div
+          className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full`}
+          style={{ width: percentageString }}
+        />
       </div>
-      <p>{ `${Math.floor(level / levels * 100)}%` }</p>
+      <p>{ percentageString }</p>
     </div>
   )
 }
