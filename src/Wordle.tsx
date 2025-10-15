@@ -105,15 +105,15 @@ function FutureGuess({ known }: {
 }) {
   return (
     <div className='font-mono text-center'>
-      { known.positions.map((c, n) => (
+      { known.positions.map((position, n) => (
         <span
           key={ n }
           className={
-            c.is
+            position.is
             ? 'text-green-500'
             : 'text-gray-500'
           }
-        >{ c.is ?? '-' }</span>
+        >{ position.is ?? '-' }</span>
       )) }
     </div>
   )
