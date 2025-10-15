@@ -54,7 +54,7 @@ export default function App() {
 
 function Header() {
   return (
-    <header className='my-6'>
+    <header className='p-6'>
       <h1 className='text-4xl text-center font-bold'>Wordle</h1>
       <p className='text-sm text-center text-slate-500'>
         by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
@@ -72,7 +72,7 @@ function Main({ wordleQueue, level, nextWordle }: {
   nextWordle: () => void
 }) {
   return (
-    <main className='max-w-3xl mx-auto px-6'>{
+    <main className='max-w-3xl mx-auto p-2'>{
       wordleQueue[level]
       ? <Wordle
         wordle={

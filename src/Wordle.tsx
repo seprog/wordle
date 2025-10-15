@@ -39,13 +39,13 @@ export function Wordle({ wordle, nextWordle }: {
           nextWordle()
         }
       } }
-      className='flex flex-col'
+      className='flex flex-col p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'
     >
       <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
       <input
         type='submit'
         value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
-        className='px-2 py-1 bg-sky-500 dark:bg-orange-500 text-white rounded'
+        className='p-2 bg-sky-500 dark:bg-orange-500 text-white rounded-lg'
       />
     </form>
   )
