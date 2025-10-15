@@ -121,7 +121,12 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
   return (
     <div className='flex flex-row items-center gap-1 text-xs text-slate-700 dark:text-slate-300'>
       <p>{ `(${ Math.min(level+1, levels) }/${ levels })` }</p>
-      <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'>
+      <motion.div
+        className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'
+        whileHover={{
+          height: 16
+        }}
+      >
         <motion.div
           animate={ {
             width: `${ Math.round(Math.min(level+1, levels) / levels * 100) }%`,
@@ -162,7 +167,7 @@ function Progress({ level, correctLevels, score, isDone, levels }: {
           } }
           className={ 'absolute bg-gradient-to-br from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 h-full rounded-full' }
         />
-      </div>
+      </motion.div>
       <p className='text-green-500'>{ Math.round(score / ((level + (isDone ? 1 : 0)) || 1) * 100) }%</p>
       <p className='text-yellow-500'>{ Math.round(correctLevels / ((level + (isDone ? 1 : 0)) || 1) * 100) }%</p>
     </div>
