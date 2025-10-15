@@ -14,9 +14,9 @@ export function Wordle({ wordle, nextWordle }: {
 
   const [ guesses, setGuesses ] = useState<string[]>([])
   const makeGuess = (guess: string) =>
-    (guess && guess.length === solution.length) && setGuesses((guesses) => [
+    (guess && guess.trim().length === solution.length) && setGuesses((guesses) => [
       ...guesses,
-      guess
+      guess.trim()
     ])
 
   return (
