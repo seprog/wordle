@@ -45,7 +45,7 @@ export function Wordle({ wordle, nextWordle }: {
       <input
         type='submit'
         value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
-        className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
+        className='px-2 py-1 bg-sky-500 dark:bg-orange-500 text-white rounded'
       />
     </form>
   )
