@@ -30,13 +30,13 @@ export function Wordle({ wordle, nextWordle }: {
       <table>
         <thead>
           <tr className='text-nowrap'>
-            <th>{ `Round (${ hints.length })` }</th>
+            <th>Round</th>
             <th>{ `Guess (${ solution.length })` }</th>
             <th>Hint</th>
           </tr>
         </thead>
         <tbody>
-          { hints.slice(0, guesses.length+1).map((hint, round) => (
+          { hints.map((hint, round) => (
             <tr key={ round } className={ `${round === guesses.length ? 'font-semibold' : ''}` }>
               <td className='px-2 py-2 font-mono text-end'>
                 { round + 1 }
@@ -44,10 +44,15 @@ export function Wordle({ wordle, nextWordle }: {
               <td className='px-2 py-2'>{
                 guesses[round]
                 ? <FormattedGuess guess={ guesses[round] } solution={ solution } />
-                : <GuessInput />
+                : round == guesses.length
+                  ? <GuessInput />
+                  : <></>
               }</td>
               <td className='px-2 py-2'>
-                { hint }
+                { round <= guesses.length
+                  ? hint
+                  : '*'.repeat(hint.length)
+                }
               </td>
             </tr>
           )) }
