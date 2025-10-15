@@ -9,7 +9,8 @@ type KnownInformation = {
     is?: string
     isNot: string[]
   }[]
-  occurences: string[]
+  has: string[]
+  hasNot: string[]
 }
 
 
@@ -120,7 +121,7 @@ function PastGuess({ guess, known }: {
         <span
           key={ n }
           className={
-            known.occurences.includes(c)
+            known.has.includes(c)
             ? known.positions[n]!.is === c
               ? 'text-green-500'
               : 'text-yellow-500'
@@ -177,9 +178,9 @@ function GuessInput({ known }: {
             className={
               known.positions[n]?.is === c
               ? 'text-green-500'
-              : known.positions[n]?.is !== undefined || known.positions[n]!.isNot.includes(c)
+              : known.positions[n]?.is !== undefined || known.positions[n]!.isNot.includes(c) || known.hasNot.includes(c)
                 ? 'text-red-500'
-                : known.occurences.includes(c)
+                : known.has.includes(c)
                   ? 'text-yellow-500'
                   : 'text-slate-800 dark:text-slate-200'
             }
@@ -200,7 +201,8 @@ function knownInformation(
       is: guesses.some((guess) => guess.at(n) === c) ? c : undefined,
       isNot: guesses.map((guess) => guess.at(n) !== c ? guess.at(n) : undefined).filter((c) => c !== undefined)
     })),
-    occurences: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : '')
+    has: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : ''),
+    hasNot: guesses.flatMap((guess) => guess.split('').filter((c) => !solutionArray.includes(c)))
   }
 }
 
