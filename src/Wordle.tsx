@@ -95,7 +95,7 @@ function WordleTable({ guesses, hints, solution }:{
         { hints.map((hint, round) => (
           <tr key={ round } className={`${ round === guesses.length ? 'font-bold' : '' }`}>
             <td className='px-2 py-2'>
-              <p className='font-mono text-end'>{ round + 1 }</p>
+              <p className={`font-mono text-end ${ round === guesses.length ? 'text-purple-500 dark:text-orange-500' : '' }`}>{ round + 1 }</p>
             </td>
             <td className='px-2 py-2 font-semibold tracking-wider'>{
               guesses[round]
