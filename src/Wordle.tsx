@@ -71,7 +71,7 @@ function WordleTable({ guesses, hints, solution }:{
             <td className='px-2 py-2'>
               <p className='font-mono text-end'>{ round + 1 }</p>
             </td>
-            <td className='px-2 py-2'>{
+            <td className='px-2 py-2 tracking-wider'>{
               guesses[round]
               ? <PastGuess guess={ guesses[round] } known={ knownInformation(guesses, solution) } />
               : round === guesses.length
