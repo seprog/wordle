@@ -31,7 +31,7 @@ export function Wordle({ wordle, nextWordle }: {
         <thead>
           <tr className='text-nowrap'>
             <th>Round</th>
-            <th>{ `Guess (${ solution.length })` }</th>
+            <th>Guess</th>
             <th>Hint</th>
           </tr>
         </thead>
@@ -46,7 +46,7 @@ export function Wordle({ wordle, nextWordle }: {
                 ? <FormattedGuess guess={ guesses[round] } solution={ solution } />
                 : round == guesses.length
                   ? <GuessInput />
-                  : <></>
+                  : <FutureGuess guesses={ guesses } solution={ solution } />
               }</td>
               <td className='px-2 py-2'>
                 { round <= guesses.length
@@ -86,6 +86,26 @@ function FormattedGuess({ guess, solution }: {
             : 'text-red-500'
           }
         >{ c }</span>
+      )) }
+    </div>
+  )
+}
+
+function FutureGuess({ guesses, solution }: {
+  guesses: string[]
+  solution: string
+}) {
+  return (
+    <div className='font-mono text-center'>
+      { solution.toUpperCase().split('').map((c, n) => (
+        <span
+          key={ n }
+          className={
+            guesses.map((guess) => guess.at(n)).includes(c)
+            ? 'text-green-500'
+            : 'text-gray-500'
+          }
+        >{ guesses.map((guess) => guess.at(n)).includes(c) ? c : '-' }</span>
       )) }
     </div>
   )
