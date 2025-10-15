@@ -85,7 +85,7 @@ function Main({ wordleQueue, level, nextWordle }: {
           <p className='text-lg text-center'>🎉</p>
         </>
       }
-      <Progress level={level} levels={wordleQueue.length} />
+      <Progress level={ level } levels={ wordleQueue.length } />
     </main>
   )
 }
@@ -106,22 +106,21 @@ function Progress({ level, levels }: {
   level: number
   levels: number
 }) {
-  const percentageString = `${Math.floor(level / levels * 100)}%`
   return (
     <div className='flex flex-row items-center gap-1 text-xs text-slate-700 dark:text-slate-300'>
-      <p>{ `(${Math.min(level+1, levels)}/${levels})` }</p>
+      <p>{ `(${ Math.min(level+1, levels) }/${ levels })` }</p>
       <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'>
         <motion.div
-          animate={{
-            width: percentageString,
+          animate={ {
+            width: `${ Math.floor(level / levels * 100) }%`,
             transition: {
               duration: 1
             }
-          }}
-          className={`absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full rounded-full`}
+          } }
+          className={ `absolute bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 h-full rounded-full` }
         />
       </div>
-      <p>{ percentageString }</p>
+      <p>{ Math.floor(level / levels * 100) }%</p>
     </div>
   )
 }
