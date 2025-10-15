@@ -3,10 +3,16 @@ import random from 'random'
 import wordles from '../wordles.yaml'
 
 
-export function getWordleQueue(seed?: number) {
-  return getPermutation<{
-    [solution: string]: string[]
-  }>(wordles, seed)
+export function getWordleQueue(category?: string, seed?: number) {
+  // safeguard the category
+  category = (category && wordles[category]) ? category : Object.keys(wordles)[random.int(0, Object.keys(wordles).length - 1)]!
+
+  return {
+    category,
+    ...getPermutation<{
+      [solution: string]: string[]
+    }>(wordles[category], seed)
+  }
 }
 
 export function getPermutation<T>(arr: readonly T[], seed?: number): {

@@ -2,14 +2,21 @@ import { serve } from 'bun'
 import index from './index.html'
 import { getWordleQueue } from './lib/wordleHelper'
 
+
 const server = serve({
   routes: {
     '/api/queue': (req: Request) => {
       try {
-        const url = new URL(req.url)
-        const seedParam = url.searchParams.get('seed') ?? undefined
-        const seed = seedParam !== undefined && seedParam !== '' ? Number.parseInt(seedParam) : undefined
-        const result = getWordleQueue(seed)
+        const searchParams = new URL(req.url).searchParams
+
+        const categoryParam = searchParams.get('category')
+        const seedParam = searchParams.get('seed')
+
+        const result = getWordleQueue(
+          (categoryParam !== null) ? categoryParam : undefined,
+          (seedParam !== null) ? Number.parseInt(seedParam) : undefined
+        )
+
         return new Response(JSON.stringify(result), {
           headers: { 'Content-Type': 'application/json' }
         })

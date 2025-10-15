@@ -9,37 +9,47 @@ import './index.css'
 
 
 export default function App() {
-  const [ wordleQueue, setWordleQueue ] = useState<any[]|null>(null)
-  const [ seed, setSeed ] = useState(0)
-  const [ level, setLevel ] = useState(0)
+  const [ category, setCategory ] = useState<string>()
+  const [ seed, setSeed ] = useState<number>()
+  const [ wordleQueue, setWordleQueue ] = useState<{
+    [solution: string]: string[]
+  }[]>()
 
   useEffect(() => {
-    fetch(`/api/queue?seed=${encodeURIComponent(new URLSearchParams(window.location.search).get('seed') ?? '')}`)
+    const searchParams = new URLSearchParams(window.location.search)
+    fetch(`/api/queue?category=${encodeURIComponent(searchParams.get('category') ?? '')}&seed=${encodeURIComponent(searchParams.get('seed') ?? '')}`)
       .then(r => r.json())
-      .then(({ permutation, seed }) => {
-        setWordleQueue(() => permutation)
+      .then(({ category, seed, permutation }) => {
+        setCategory(() => category)
         setSeed(() => seed)
+        setWordleQueue(() => permutation)
       })
       .catch(() => {
         setWordleQueue(() => [])
       })
-  }, [])
+  }, [window.location.search, setCategory, setSeed, setWordleQueue])
 
-  if (!wordleQueue)
-    return (<div className='my-6 text-2xl text-center text-gray-500>'>Loading…</div>)
+  const [ level, setLevel ] = useState(0)
 
   return (
     <div>
       <Header />
-      <Main
-        wordleQueue={ wordleQueue }
-        level={ level }
-        nextWordle={ () => setLevel((level) => level + 1) }
-      />
+      { wordleQueue
+        ? (
+          <Main
+            wordleQueue={ wordleQueue }
+            level={ level }
+            nextWordle={ () => setLevel((level) => level + 1) }
+          />
+        ) : (
+          <h2 className='text-2xl text-center text-gray-500'>Loading...</h2>
+        )
+      }
       <Footer
-        seed={ seed }
-        level={ level }
-        levels={ wordleQueue.length }
+        category={ category ?? '' }
+        seed={ seed ?? -1 }
+        level={ level ?? -1 }
+        levels={ wordleQueue?.length ?? -1 }
       />
     </div>
   )
@@ -75,7 +85,8 @@ function Main({ wordleQueue, level, nextWordle }: {
   )
 }
 
-function Footer({ seed, level, levels }: {
+function Footer({ category, seed, level, levels }: {
+  category: string
   seed: number
   level: number
   levels: number
@@ -84,6 +95,7 @@ function Footer({ seed, level, levels }: {
     <footer className='fixed left-0 right-0 bottom-1'>
       <p className='text-xs text-center text-gray-500'>level: <span className='font-semibold'>{ (level+1).toString() }/{ levels.toString() }</span></p>
       <p className='text-xs text-center text-gray-500'>seed: <span className='font-semibold'>{ (seed+1).toString() }/{ factorial(levels) }</span></p>
+      <p className='text-xs text-center text-gray-500'>category: <span className='font-semibold'>{ category }</span></p>
     </footer>
   )
 }
