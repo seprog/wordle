@@ -32,52 +32,61 @@ export function Wordle({ wordle, nextWordle }: {
     <form
       onSubmit={ (e) => {
         e.preventDefault()
-        makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
+        if (guesses.length < hints.length)
+          makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
+        else {
+          setGuesses(() => [])
+          nextWordle()
+        }
       } }
       className='flex flex-col'
     >
-      <table>
-        <thead>
-          <tr className='text-nowrap'>
-            <th>Round</th>
-            <th>Guess</th>
-            <th>Hint</th>
-          </tr>
-        </thead>
-        <tbody>
-          { hints.map((hint, round) => (
-            <tr key={ round } className={ `${round === guesses.length ? 'font-semibold' : ''}` }>
-              <td className='px-2 py-2'>
-                <p className='font-mono text-end'>
-                  { round + 1 }
-                </p>
-              </td>
-              <td className='px-2 py-2'>{
-                guesses[round]
-                ? <PastGuess guess={guesses[round]} known={ knownInformation(guesses, solution) } />
-                : round == guesses.length
-                  ? <GuessInput known={ knownInformation(guesses, solution) } />
-                  : <FutureGuess known={ knownInformation(guesses, solution) } />
-              }</td>
-              <td className='px-2 py-2'>
-                <p>{
-                  round <= guesses.length
-                  ? hint
-                  : '*'.repeat(hint.length)
-                }</p>
-              </td>
-            </tr>
-          )) }
-        </tbody>
-      </table>
-      { guesses.length < hints.length
-        ? <GuessButton />
-        : <NextWordleButton nextWordle={ () => {
-          setGuesses(() => [])
-          nextWordle()
-        } } />
-      }
+      <Table guesses={ guesses } hints={ hints } solution={ solution } />
+      <input
+        type='submit'
+        value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
+        className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
+      />
     </form>
+  )
+}
+
+function Table({ guesses, hints, solution }:{
+  guesses: string[]
+  hints: string[]
+  solution: string
+}) {
+  return (
+    <table>
+      <thead>
+        <tr className='text-nowrap'>
+          <th>Round</th>
+          <th>Guess</th>
+          <th>Hint</th>
+        </tr>
+      </thead>
+      <tbody>
+        { hints.map((hint, round) => (
+          <tr key={round} className={`${round === guesses.length ? 'font-semibold' : ''}`}>
+            <td className='px-2 py-2'>
+              <p className='font-mono text-end'>
+                {round + 1}
+              </p>
+            </td>
+            <td className='px-2 py-2'>{guesses[round]
+              ? <PastGuess guess={guesses[round]} known={knownInformation(guesses, solution)} />
+              : round == guesses.length
+                ? <GuessInput known={knownInformation(guesses, solution)} />
+                : <FutureGuess known={knownInformation(guesses, solution)} />}</td>
+            <td className='px-2 py-2'>
+              <p>{round <= guesses.length
+                ? hint
+                : '*'.repeat(hint.length)}</p>
+            </td>
+          </tr>
+        )) }
+      </tbody>
+    </table>
   )
 }
 
@@ -156,28 +165,6 @@ function GuessInput({ known }: {
         )) }
       </div>
     </div>
-  )
-}
-
-function GuessButton() {
-  return (
-    <input
-      type='submit'
-      value={ 'Submit' }
-      className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
-    />
-  )
-}
-
-function NextWordleButton({ nextWordle }: {
-  nextWordle: () => void
-}) {
-  return (
-    <button
-      autoFocus
-      onClick={ nextWordle }
-      className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
-    >Next Wordle</button>
   )
 }
 
