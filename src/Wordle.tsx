@@ -140,11 +140,13 @@ function GuessInput({ known }: {
         type='text'
         name='guess'
         autoFocus
+        size={ known.positions.length }
+        maxLength={ known.positions.length }
         value={ guessInput }
         onChange={ ({ currentTarget: { value } }) => setGuessInput(
           () => value.trimStart().slice(0, known.positions.length).toUpperCase()
         ) }
-        className='px-2 py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-gray-300 dark:border-gray-700 rounded'
+        className='py-1 font-mono text-center text-transparent text-shadow-transparent caret-slate-900 dark:caret-slate-100 border border-gray-300 dark:border-gray-700 rounded'
       />
       <div className='absolute font-mono text-center pointer-events-none'>
         { guessInput.split('').map((c, n) => (
