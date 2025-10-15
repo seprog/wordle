@@ -55,7 +55,7 @@ export default function App() {
 function Header() {
   return (
     <header className='p-6'>
-      <h1 className='text-4xl text-center font-bold'>Wordle</h1>
+      <h1 className='text-4xl text-center font-bold bg-gradient-to-b from-slate-600 to-slate-900 dark:from-slate-100 dark:to-slate-400 text-transparent bg-clip-text'>Wordle</h1>
       <p className='text-sm text-center text-slate-500'>
         by <a className='font-semibold' href='https://github.com/seprog'>seprog</a>
       </p>

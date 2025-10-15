@@ -45,7 +45,7 @@ export function Wordle({ wordle, nextWordle }: {
       <input
         type='submit'
         value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
-        className='p-2 bg-sky-500 dark:bg-orange-500 text-white rounded-lg'
+        className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 rounded-lg'
       />
     </form>
   )
@@ -67,11 +67,11 @@ function WordleTable({ guesses, hints, solution }:{
       </thead>
       <tbody>
         { hints.map((hint, round) => (
-          <tr key={ round } className={`${ round === guesses.length ? 'font-semibold' : '' }`}>
+          <tr key={ round } className={`${ round === guesses.length ? 'font-bold' : '' }`}>
             <td className='px-2 py-2'>
               <p className='font-mono text-end'>{ round + 1 }</p>
             </td>
-            <td className='px-2 py-2 tracking-wider'>{
+            <td className='px-2 py-2 font-semibold tracking-wider'>{
               guesses[round]
               ? <PastGuess guess={ guesses[round] } known={ knownInformation(guesses, solution) } />
               : round === guesses.length
@@ -159,7 +159,7 @@ function GuessInput({ known }: {
                 ? 'text-red-500'
                 : known.occurences.includes(c)
                   ? 'text-yellow-500'
-                  : 'text-slate-900 dark:text-slate-100'
+                  : 'text-slate-800 dark:text-slate-200'
             }
           >{ c }</span>
         )) }
