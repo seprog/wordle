@@ -3,6 +3,15 @@
 import { useState } from 'react'
 
 
+type KnownInformation = {
+  positions: {
+    is?: string
+    isNot: string[]
+  }[]
+  occurences: string[]
+}
+
+
 export function Wordle({ wordle, nextWordle }: {
   wordle: {
     solution: string
@@ -43,10 +52,10 @@ export function Wordle({ wordle, nextWordle }: {
               </td>
               <td className='px-2 py-2'>{
                 guesses[round]
-                ? <FormattedGuess guess={ guesses[round] } solution={ solution } />
+                ? <PastGuess guess={guesses[round]} known={ knownInformation(guesses, solution) } />
                 : round == guesses.length
                   ? <GuessInput />
-                  : <FutureGuess guesses={ guesses } solution={ solution } />
+                  : <FutureGuess known={ knownInformation(guesses, solution) } />
               }</td>
               <td className='px-2 py-2'>
                 { round <= guesses.length
@@ -69,18 +78,18 @@ export function Wordle({ wordle, nextWordle }: {
   )
 }
 
-function FormattedGuess({ guess, solution }: {
+function PastGuess({ guess, known }: {
   guess: string
-  solution: string
+  known: KnownInformation
 }) {
   return (
     <div className='font-mono text-center'>
-      { guess.toUpperCase().split('').map((c, n) => (
+      { guess.split('').map((c, n) => (
         <span
           key={ n }
           className={
-            solution.toUpperCase().includes(c)
-            ? c === solution.toUpperCase().at(n)
+            known.occurences.includes(c)
+            ? known.positions[n]!.is === c
               ? 'text-green-500'
               : 'text-yellow-500'
             : 'text-red-500'
@@ -91,21 +100,20 @@ function FormattedGuess({ guess, solution }: {
   )
 }
 
-function FutureGuess({ guesses, solution }: {
-  guesses: string[]
-  solution: string
+function FutureGuess({ known }: {
+  known: KnownInformation
 }) {
   return (
     <div className='font-mono text-center'>
-      { solution.toUpperCase().split('').map((c, n) => (
+      { known.positions.map((c, n) => (
         <span
           key={ n }
           className={
-            guesses.some((guess) => guess.at(n) === c)
+            c.is
             ? 'text-green-500'
             : 'text-gray-500'
           }
-        >{ guesses.map((guess) => guess.at(n)).includes(c) ? c : '-' }</span>
+        >{ c.is ?? '-' }</span>
       )) }
     </div>
   )
@@ -142,4 +150,18 @@ function NextWordleButton({ nextWordle }: {
       className='px-2 py-1 bg-blue-500 dark:bg-orange-500 text-white rounded'
     >Next Wordle</button>
   )
+}
+
+function knownInformation(
+  guesses: string[],
+  solution: string
+): KnownInformation {
+  const solutionArray = solution.split('')
+  return {
+    positions: solutionArray.map((c, n) => ({
+      is: guesses.some((guess) => guess.at(n) === c) ? c : undefined,
+      isNot: guesses.map((guess) => guess.at(n) !== c ? guess.at(n) : undefined).filter((c) => c !== undefined)
+    })),
+    occurences: solutionArray.map((c) => guesses.some((guess) => guess.includes(c)) ? c : '')
+  }
 }
