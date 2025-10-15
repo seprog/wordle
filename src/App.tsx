@@ -90,7 +90,7 @@ function Main({ wordleQueue, level, nextWordle }: {
             } }
           />
         : <>
-          <h2 className='text-2xl text-center text-purple-500 dark:text-orange-500 font-semibold'>Category completed!</h2>
+          <h2 className='text-2xl text-center text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-emerald-500 dark:from-orange-500 dark:to-rose-500 font-semibold'>Category completed!</h2>
           <p className='text-lg text-center'>🎉</p>
         </>
       }

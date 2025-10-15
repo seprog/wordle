@@ -56,14 +56,14 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
         ? <motion.input
             type='submit'
             value={ 'Submit' }
-            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
+            className='p-2 bg-gradient-to-br from-purple-300 to-purple-500 dark:from-orange-500 dark:to-orange-700 font-semibold rounded-xl'
             whileTap={{ scale: .95 }}
           />
         : <>
           <motion.input
             type='submit'
             value={ 'Next Wordle' }
-            className='p-2 bg-gradient-to-br from-emerald-400 to-emerald-500 dark:from-rose-500 dark:to-rose-600 font-semibold rounded-xl'
+            className='p-2 bg-gradient-to-br from-emerald-300 to-emerald-500 dark:from-rose-500 dark:to-rose-700 font-semibold rounded-xl'
             whileTap={{ scale: .95 }}
           />
           <span className='text-lg font-semibold'><PastGuess guess={solution} known={ knownInformation(guesses, solution) } /></span>
