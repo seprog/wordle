@@ -32,22 +32,16 @@ export function getPermutation<T>(arr: readonly T[], seed?: number): {
   // Lehmer Code
   let currentSeed = seed
   for (let i = n - 1; i >= 0; i--) {
-    const currentFactorial = factorial(i)
-    const indexToPick = Math.floor(currentSeed / currentFactorial)
-    permutation.push(availableElements[indexToPick]!)
-    availableElements.splice(indexToPick, 1)
-    currentSeed %= currentFactorial
+    const iFactorial = factorial(i)
+    permutation.push(availableElements.splice(Math.floor(currentSeed / iFactorial), 1)[0]!)
+    currentSeed %= iFactorial
   }
 
   return {
-    permutation,
-    seed
+    seed,
+    permutation
   }
 }
 
-export function factorial(n: number): number {
-  let result = 1
-  for (let i = 2; i <= n; i++)
-    result *= i
-  return result
-}
+export const factorial = (n: number) =>
+  Array(n+1).keys().drop(2).reduce((acc, i) => acc *= i, 1)

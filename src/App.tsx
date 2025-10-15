@@ -16,8 +16,7 @@ export default function App() {
   }[]>()
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search)
-    fetch(`/api/queue?category=${encodeURIComponent(searchParams.get('category') ?? '')}&seed=${encodeURIComponent(searchParams.get('seed') ?? '')}`)
+    fetch(`/api/queue${window.location.search}`)
       .then(r => r.json())
       .then(({ category, seed, permutation }) => {
         setCategory(() => category)
@@ -35,15 +34,12 @@ export default function App() {
     <div>
       <Header />
       { wordleQueue
-        ? (
-          <Main
-            wordleQueue={ wordleQueue }
-            level={ level }
-            nextWordle={ () => setLevel((level) => level + 1) }
-          />
-        ) : (
-          <h2 className='text-2xl text-center text-gray-500'>Loading...</h2>
-        )
+        ? <Main
+          wordleQueue={ wordleQueue }
+          level={ level }
+          nextWordle={ () => setLevel((level) => level + 1) }
+        />
+        : <h2 className='text-2xl text-center text-gray-500'>Loading...</h2>
       }
       <Footer
         category={ category ?? '' }
