@@ -24,19 +24,21 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
 
   const [ guesses, setGuesses ] = useState<string[]>([])
   function makeGuess(guess: string) {
-    if (guess && guess.trim().length === solution.length) {
+  if (!guess || guess.trim().length !== solution.length) return
+
+    if (isSolved([
+      ...guesses,
+      guess.trim()
+    ], solution)) {
+      setSolved(guesses.length + 1)
       setGuesses((guesses) => [
         ...guesses,
-        guess.trim()
+        ...Array(hints.length - guesses.length).fill(solution.toUpperCase())
       ])
-      if (isSolved(guesses, solution)) {
-        setSolved(guesses.length)
-        setGuesses((guesses) => [
-          ...guesses,
-          ...Array(hints.length - guesses.length).fill(solution)
-        ])
-      }
-    }
+    } else setGuesses((guesses) => [
+      ...guesses,
+      guess.trim()
+    ])
   }
 
   return (
