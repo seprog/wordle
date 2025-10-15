@@ -105,7 +105,7 @@ function WordleTable({ guesses, hints, solution }:{
                 : <FutureGuess known={ knownInformation(guesses, solution) } />
             }</td>
             <td className='px-2 py-2 text-sm'>
-              <p>{ round <= guesses.length ? hint : scramble(hint) }</p>
+              <p className={ round <= guesses.length ? 'blur-none' : 'blur-xs' }>{ hint }</p>
             </td>
           </tr>
         )) }
@@ -209,13 +209,4 @@ function knownInformation(
   }
   console.debug(known)
   return known
-}
-
-function scramble(hint: string) {
-  const replaceChars = 'abcdefghijklmnopqrstuvwkyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  return hint.split(' ').map(
-    (word) => word.split('').map(
-      (c) => replaceChars.includes(c) ? replaceChars[Math.floor(Math.random() * replaceChars.length)] : c
-    ).join('')
-  ).join(' ')
 }
