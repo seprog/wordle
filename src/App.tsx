@@ -71,6 +71,7 @@ function Main({ wordleQueue, level, nextWordle }: {
   level: number
   nextWordle: () => void
 }) {
+  const [ correctLevels, setCorrectLevels ] = useState(0)
   return (
     <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-2xl'>
       { wordleQueue[level]
@@ -78,14 +79,17 @@ function Main({ wordleQueue, level, nextWordle }: {
             wordle={
               wordleQueue[level]
             }
-            nextWordle={ nextWordle }
+            nextWordle={ (solved: boolean) => {
+              setCorrectLevels((correctLevels) => correctLevels + (solved ? 1 : 0))
+              nextWordle()
+            } }
           />
         : <>
           <h2 className='text-2xl text-center text-purple-500 dark:text-rose-500 font-semibold'>Category completed!</h2>
           <p className='text-lg text-center'>🎉</p>
         </>
       }
-      <Progress level={ level } levels={ wordleQueue.length } />
+      <Progress level={ level } correctLevels={ correctLevels } levels={ wordleQueue.length } />
     </main>
   )
 }
@@ -102,8 +106,9 @@ function Footer({ category, seed }: {
   )
 }
 
-function Progress({ level, levels }: {
+function Progress({ level, correctLevels, levels }: {
   level: number
+  correctLevels: number
   levels: number
 }) {
   return (
@@ -119,8 +124,17 @@ function Progress({ level, levels }: {
           } }
           className={ `absolute bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 h-full rounded-full` }
         />
+        <motion.div
+          animate={ {
+            width: `${ Math.floor(correctLevels / levels * 100) }%`,
+            transition: {
+              duration: 1
+            }
+          } }
+          className={ `absolute bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 h-full rounded-full` }
+        />
       </div>
-      <p>{ Math.floor(level / levels * 100) }%</p>
+      <p>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
     </div>
   )
 }

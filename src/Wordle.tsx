@@ -17,7 +17,7 @@ export function Wordle({ wordle, nextWordle }: {
     solution: string
     hints: string[]
   }
-  nextWordle: () => void
+  nextWordle: (solved: boolean) => void
 }) {
   const { solution, hints } = wordle
 
@@ -36,7 +36,7 @@ export function Wordle({ wordle, nextWordle }: {
           makeGuess(new FormData(e.currentTarget).get('guess') as string | null ?? '')
         else {
           setGuesses(() => [])
-          nextWordle()
+          nextWordle(knownInformation(guesses, solution).positions.every(({ is }) => is))
         }
       } }
       className='flex flex-col'
