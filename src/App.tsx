@@ -32,15 +32,15 @@ export default function App() {
   return (
     <div className='flex flex-col items-center justify-center'>
       <Header />
-      { wordleQueue
+      { (category !== undefined && wordleQueue)
         ? <Main
+          category={ category }
           wordleQueue={ wordleQueue }
           level={ level }
           nextWordle={ () => setLevel((level) => level + 1) }
         />
         : <h2 className='text-2xl text-center text-slate-500'>Loading...</h2>
       }
-      { category !== undefined && <Footer category={ category } /> }
     </div>
   )
 }
@@ -56,7 +56,8 @@ function Header() {
   )
 }
 
-function Main({ wordleQueue, level, nextWordle }: {
+function Main({ category, wordleQueue, level, nextWordle }: {
+  category: string
   wordleQueue: {
     solution: string
     hints: string[]
@@ -69,6 +70,7 @@ function Main({ wordleQueue, level, nextWordle }: {
   const [ isDone, setIsDone] = useState(false)
   return (
     <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-2xl'>
+      <h2 className='text-2xl text-center font-semibold'>{ category }</h2>
       { wordleQueue[level]
         ? <Wordle
             wordle={ wordleQueue[level] }
@@ -89,16 +91,6 @@ function Main({ wordleQueue, level, nextWordle }: {
       }
       <Progress level={ level } correctLevels={ correctLevels } score={ score } isDone={ isDone } levels={ wordleQueue.length } />
     </main>
-  )
-}
-
-function Footer({ category }: {
-  category: string
-}) {
-  return (
-    <footer className='fixed left-0 right-0 bottom-1'>
-      <p className='text-xs text-center text-slate-500'>category: <span className='font-semibold'>{ category }</span></p>
-    </footer>
   )
 }
 
