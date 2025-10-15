@@ -42,11 +42,18 @@ export function Wordle({ wordle, nextWordle }: {
       className='flex flex-col p-2 bg-slate-200 dark:bg-slate-800 rounded-xl'
     >
       <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
-      <input
-        type='submit'
-        value={ guesses.length < hints.length ? 'Submit' : 'Next Wordle' }
-        className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 rounded-lg'
-      />
+      { guesses.length < hints.length
+        ? <input
+            type='submit'
+            value={ 'Submit' }
+            className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 rounded-lg'
+          />
+        : <input
+            type='submit'
+            value={ 'Next Wordle' }
+            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 rounded-lg'
+          />
+      }
     </form>
   )
 }
