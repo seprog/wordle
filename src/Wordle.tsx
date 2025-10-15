@@ -24,20 +24,16 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
 
   const [ guesses, setGuesses ] = useState<string[]>([])
   function makeGuess(guess: string) {
-  if (!guess || guess.trim().length !== solution.length) return
+    if (!guess || guess.trim().length !== solution.length) return
 
-    if (isSolved([
+    const solved = isSolved([ ...guesses, guess.trim() ], solution)
+
+    if (solved || guesses.length >= hints.length - 1)
+      setSolved(solved ? guesses.length + 1 : 0)
+    setGuesses((guesses) => [
       ...guesses,
-      guess.trim()
-    ], solution)) {
-      setSolved(guesses.length + 1)
-      setGuesses((guesses) => [
-        ...guesses,
-        ...Array(hints.length - guesses.length).fill(solution.toUpperCase())
-      ])
-    } else setGuesses((guesses) => [
-      ...guesses,
-      guess.trim()
+      guess.trim(),
+      ...Array(solved ? Math.max(0, hints.length - guesses.length - 1) : 0).fill(solution.toUpperCase())
     ])
   }
 
@@ -59,12 +55,12 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
         ? <input
             type='submit'
             value={ 'Submit' }
-            className='p-2 bg-gradient-to-br from-sky-400 to-sky-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
+            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
           />
         : <input
             type='submit'
             value={ 'Next Wordle' }
-            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-rose-500 dark:to-rose-600 font-semibold rounded-xl'
+            className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
           />
       }
     </form>

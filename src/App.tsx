@@ -73,25 +73,28 @@ function Main({ wordleQueue, level, nextWordle }: {
 }) {
   const [ correctLevels, setCorrectLevels ] = useState(0)
   const [ score, setScore ] = useState(0)
+  const [ isDone, setIsDone] = useState(false)
   return (
     <main className='flex flex-col gap-2 max-w-3xl mx-2 p-2 bg-slate-200 dark:bg-slate-800 rounded-2xl'>
       { wordleQueue[level]
         ? <Wordle
-            wordle={
-              wordleQueue[level]
-            }
-            nextWordle={ nextWordle }
+            wordle={ wordleQueue[level] }
+            nextWordle={ () => {
+              setIsDone(() => false)
+              nextWordle()
+            } }
             setSolved={ (attempts: number) => {
-              setCorrectLevels((correctLevels) => correctLevels + 1)
-              setScore((score) => score + attempts**-1)
+              setIsDone(() => true)
+              setCorrectLevels((correctLevels) => correctLevels + (attempts ? 1 : 0))
+              setScore((score) => score + (attempts ? attempts**-1 : 0))
             } }
           />
         : <>
-          <h2 className='text-2xl text-center text-sky-500 dark:text-orange-500 font-semibold'>Category completed!</h2>
+          <h2 className='text-2xl text-center text-purple-500 dark:text-orange-500 font-semibold'>Category completed!</h2>
           <p className='text-lg text-center'>🎉</p>
         </>
       }
-      <Progress level={ level } correctLevels={ correctLevels } score={ score } levels={ wordleQueue.length } />
+      <Progress level={ level } correctLevels={ correctLevels } score={ score } isDone={ isDone } levels={ wordleQueue.length } />
     </main>
   )
 }
@@ -108,10 +111,11 @@ function Footer({ category, seed }: {
   )
 }
 
-function Progress({ level, correctLevels, score, levels }: {
+function Progress({ level, correctLevels, score, isDone, levels }: {
   level: number
   correctLevels: number
   score: number
+  isDone: boolean
   levels: number
 }) {
   return (
@@ -120,7 +124,7 @@ function Progress({ level, correctLevels, score, levels }: {
       <div className='relative bg-slate-300 dark:bg-slate-700 h-2 w-full rounded-full'>
         <motion.div
           animate={ {
-            width: `${ Math.floor(Math.min(level+1, levels) / levels * 100) }%`,
+            width: `${ Math.round(Math.min(level+1, levels) / levels * 100) }%`,
             transition: {
               delay: 0 * 1,
               duration: 1
@@ -130,7 +134,7 @@ function Progress({ level, correctLevels, score, levels }: {
         />
         <motion.div
           animate={ {
-            width: `${ Math.floor(level / levels * 100) }%`,
+            width: `${ Math.round((level + (isDone ? 1 : 0)) / levels * 100) }%`,
             transition: {
               delay: 1 * 1,
               duration: 1
@@ -140,7 +144,7 @@ function Progress({ level, correctLevels, score, levels }: {
         />
         <motion.div
           animate={ {
-            width: `${ Math.floor(correctLevels / levels * 100) }%`,
+            width: `${ Math.round(correctLevels / levels * 100) }%`,
             transition: {
               delay: 2 * 1,
               duration: 1
@@ -150,7 +154,7 @@ function Progress({ level, correctLevels, score, levels }: {
         />
         <motion.div
           animate={ {
-            width: `${ Math.floor(score / levels * 100) }%`,
+            width: `${ Math.round(score / levels * 100) }%`,
             transition: {
               delay: 3 * 1,
               duration: 1
@@ -159,8 +163,8 @@ function Progress({ level, correctLevels, score, levels }: {
           className={ 'absolute bg-gradient-to-br from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 h-full rounded-full' }
         />
       </div>
-      <p className='text-green-500'>{ Math.floor(score / (level || 1) * 100) }%</p>
-      <p className='text-yellow-500'>{ Math.floor(correctLevels / (level || 1) * 100) }%</p>
+      <p className='text-green-500'>{ Math.round(score / ((level + (isDone ? 1 : 0)) || 1) * 100) }%</p>
+      <p className='text-yellow-500'>{ Math.round(correctLevels / ((level + (isDone ? 1 : 0)) || 1) * 100) }%</p>
     </div>
   )
 }
