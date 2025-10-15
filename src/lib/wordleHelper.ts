@@ -1,11 +1,9 @@
-import random from 'random'
-
 import wordles from '../wordles.yaml'
 
 
 export function getWordleQueue(category?: string, seed?: number) {
   // safeguard the category
-  category = (category && wordles[category]) ? category : Object.keys(wordles)[random.int(0, Object.keys(wordles).length - 1)]!
+  category = (category && wordles[category]) ? category : Object.keys(wordles)[Math.floor(Math.random() * Object.keys(wordles).length)]!
 
   return {
     category,
@@ -30,7 +28,7 @@ export function getPermutation<T>(arr: readonly T[], seed?: number): {
   const nFactorial = factorial(n)
 
   // safeguard the seed
-  seed = (seed !== undefined && 0 <= seed && seed < nFactorial) ? seed : random.int(0, nFactorial-1)
+  seed = (seed !== undefined && 0 <= seed && seed < nFactorial) ? seed : Math.floor(Math.random() * nFactorial)
 
   // Create a mutable copy of the original array
   const availableElements = [...arr]
