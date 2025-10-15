@@ -85,7 +85,7 @@ function WordleTable({ guesses, hints, solution }:{
                 ? <GuessInput known={ knownInformation(guesses, solution) } />
                 : <FutureGuess known={ knownInformation(guesses, solution) } />
             }</td>
-            <td className='px-2 py-2'>
+            <td className='px-2 py-2 text-sm'>
               <p>{ round <= guesses.length ? hint : scramble(hint) }</p>
             </td>
           </tr>
