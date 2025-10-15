@@ -48,7 +48,7 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
           nextWordle()
         }
       } }
-      className='flex flex-col'
+      className='flex flex-col gap-1'
     >
       <WordleTable guesses={ guesses } hints={ hints } solution={ solution } />
       { guesses.length < hints.length
@@ -57,11 +57,14 @@ export function Wordle({ wordle, nextWordle, setSolved }: {
             value={ 'Submit' }
             className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
           />
-        : <input
+        : <>
+          <input
             type='submit'
             value={ 'Next Wordle' }
             className='p-2 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-orange-500 dark:to-orange-600 font-semibold rounded-xl'
           />
+          <span className='text-lg font-semibold'><PastGuess guess={solution} known={ knownInformation(guesses, solution) } /></span>
+        </>
       }
     </form>
   )
